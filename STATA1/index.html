@@ -1,0 +1,981 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.20">
+    
+    
+      
+        <title>STATA Beginner's Tutorial: Your First Steps in Econometrics - Stata Tutorial</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.e53b48f4.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#stata-beginners-tutorial-your-first-steps-in-econometrics" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Stata Tutorial" class="md-header__button md-logo" aria-label="Stata Tutorial" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Stata Tutorial
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              STATA Beginner's Tutorial: Your First Steps in Econometrics
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Stata Tutorial" class="md-nav__button md-logo" aria-label="Stata Tutorial" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Stata Tutorial
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../STATA first.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    STATA Basics
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      Introduction
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-stata" class="md-nav__link">
+    <span class="md-ellipsis">
+      What is STATA?
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="What is STATA?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#why-stata" class="md-nav__link">
+    <span class="md-ellipsis">
+      Why STATA?
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#stata-interface-tour" class="md-nav__link">
+    <span class="md-ellipsis">
+      STATA Interface Tour
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-a-dataset" class="md-nav__link">
+    <span class="md-ellipsis">
+      What is a Dataset?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#essential-stata-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Essential STATA Workflow
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Essential STATA Workflow">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-do-file-do-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Do File (.do file)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-log-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Log File
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-data-editor" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Data Editor
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#typical-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Typical Workflow:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#understanding-stata-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      Understanding STATA Commands
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Understanding STATA Commands">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      Examples:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#your-first-do-file-complete-walkthrough" class="md-nav__link">
+    <span class="md-ellipsis">
+      Your First Do File - Complete Walkthrough
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Your First Do File - Complete Walkthrough">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#critical-first-step-file-paths" class="md-nav__link">
+    <span class="md-ellipsis">
+      ⚠️ Critical First Step: File Paths
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-to-run-code" class="md-nav__link">
+    <span class="md-ellipsis">
+      How to Run Code
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#code-walkthrough" class="md-nav__link">
+    <span class="md-ellipsis">
+      Code Walkthrough
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Code Walkthrough">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-starting-the-session" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Starting the Session
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-loading-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Loading Data
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-initial-data-exploration" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Initial Data Exploration
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#creating-and-manipulating-variables" class="md-nav__link">
+    <span class="md-ellipsis">
+      Creating and Manipulating Variables
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Creating and Manipulating Variables">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#generating-new-variables" class="md-nav__link">
+    <span class="md-ellipsis">
+      Generating New Variables
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#modifying-dataset-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      Modifying Dataset Structure
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#advanced-variable-creation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Advanced Variable Creation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#creating-dummy-variables-two-methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      Creating Dummy Variables - Two Methods
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#adding-labels-for-clarity" class="md-nav__link">
+    <span class="md-ellipsis">
+      Adding Labels for Clarity
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Adding Labels for Clarity">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#variable-labels" class="md-nav__link">
+    <span class="md-ellipsis">
+      Variable Labels
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#value-labels" class="md-nav__link">
+    <span class="md-ellipsis">
+      Value Labels
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data-inspection" class="md-nav__link">
+    <span class="md-ellipsis">
+      Data Inspection
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#saving-and-closing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Saving and Closing
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Saving and Closing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#save-your-work" class="md-nav__link">
+    <span class="md-ellipsis">
+      Save Your Work
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#end-session-properly" class="md-nav__link">
+    <span class="md-ellipsis">
+      End Session Properly
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pro-tip-comment-your-code" class="md-nav__link">
+    <span class="md-ellipsis">
+      💡 Pro-Tip: Comment Your Code!
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      Next Steps
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="stata-beginners-tutorial-your-first-steps-in-econometrics">STATA Beginner's Tutorial: Your First Steps in Econometrics</h1>
+<h2 id="introduction">Introduction</h2>
+<p>Welcome to your STATA tutorial! This guide is designed for students using STATA for the very first time in the "Introduction to Econometrics" course.</p>
+<p><strong>Important Note</strong>: You don't need to memorize anything in this tutorial. We follow a <strong>"Learning by doing"</strong> approach. The more training sessions you complete, the more you'll learn from understanding and fixing your mistakes.</p>
+<h2 id="what-is-stata">What is STATA?</h2>
+<p>STATA is a powerful statistical software package that helps you understand, manage, and manipulate data.</p>
+<h3 id="why-stata">Why STATA?</h3>
+<ul>
+<li><strong>Most widely used</strong> statistical tool in the economics community worldwide</li>
+<li><strong>Always up-to-date</strong> with new econometric methods</li>
+<li><strong>Easier to learn</strong> compared to programming languages like R or Python</li>
+</ul>
+<h2 id="stata-interface-tour">STATA Interface Tour</h2>
+<p><img alt="Stata SS" src="../Images/STATA.png" /></p>
+<p>Let's explore the main STATA window:</p>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Menu and Toolbar</strong></td>
+<td>Access commands via menus and shortcuts</td>
+</tr>
+<tr>
+<td><strong>Review/History Window</strong></td>
+<td>Shows all past commands (click to re-run)</td>
+</tr>
+<tr>
+<td><strong>Variables Window</strong></td>
+<td>Lists dataset variables with names and labels</td>
+</tr>
+<tr>
+<td><strong>Properties Window</strong></td>
+<td>Details about selected variables or dataset</td>
+</tr>
+<tr>
+<td><strong>Results Window</strong></td>
+<td>Displays output of commands and analyses</td>
+</tr>
+<tr>
+<td><strong>Command Window</strong></td>
+<td>Type commands directly for execution</td>
+</tr>
+</tbody>
+</table>
+<h2 id="what-is-a-dataset">What is a Dataset?</h2>
+<p>A <strong>dataset</strong> is a structured collection of related data points - think of it as a super-organized spreadsheet designed for statistical analysis.
+!<img alt="Data" src="../Images/Dataviewer.png" /></p>
+<h2 id="essential-stata-workflow">Essential STATA Workflow</h2>
+<p>You'll frequently use these three components:</p>
+<h3 id="1-do-file-do-file">1. Do File (.do file)</h3>
+<ul>
+<li>A script file containing your STATA commands</li>
+<li><strong>Why use it?</strong> Without a do file, you lose track of your code, making debugging and navigation difficult</li>
+<li><strong>Golden Rule</strong>: Always write and run code through a do file!</li>
+</ul>
+<h3 id="2-log-file">2. Log File</h3>
+<ul>
+<li>Records everything you do in STATA</li>
+<li>Essential for troubleshooting and keeping complete session records</li>
+<li>Nothing gets missed when you need to review your work</li>
+<li><strong>Important:</strong> If you don’t open a log file at the beginning, none of your results will be saved. There’s no way to recover that output afterward.</li>
+</ul>
+<h3 id="3-data-editor">3. Data Editor</h3>
+<ul>
+<li>Built-in tool to view and edit data in tabular form</li>
+<li>Useful for visual data inspection and identifying issues</li>
+</ul>
+<h3 id="typical-workflow">Typical Workflow:</h3>
+<ol>
+<li>Open STATA</li>
+<li>Start a log file (new or resume existing)</li>
+<li>Open/create your do file</li>
+<li>Write and execute code</li>
+<li>Use Data Editor and other tools as needed</li>
+<li>Save do file(s)</li>
+<li>Close log file</li>
+<li>Close STATA</li>
+</ol>
+<h2 id="understanding-stata-commands">Understanding STATA Commands</h2>
+<p>STATA commands follow a consistent syntax pattern:</p>
+<pre><code>Command + Variable(s) + Options
+</code></pre>
+<h3 id="examples">Examples:</h3>
+<p><strong>Example 1: Basic Summary</strong></p>
+<pre><code class="language-stata">summarize wage
+</code></pre>
+<ul>
+<li><strong>Command</strong>: <code>summarize</code> (provides summary statistics)</li>
+<li><strong>Variable</strong>: <code>wage</code></li>
+<li><strong>Options</strong>: None</li>
+</ul>
+<p><strong>Example 2: Scatter Plot with Title</strong></p>
+<pre><code class="language-stata">scatter wage edu, title(&quot;Wage vs Education&quot;)
+</code></pre>
+<ul>
+<li><strong>Command</strong>: <code>scatter</code> (creates scatterplot)</li>
+<li><strong>Variables</strong>: <code>wage</code> (y-axis), <code>edu</code> (x-axis)</li>
+<li><strong>Option</strong>: <code>title(" ")</code> (adds chart title)</li>
+</ul>
+<p><strong>Note on Variable Lists</strong>: You can often use multiple variables. For example: <code>summarize wage edu age</code> provides statistics for all three variables. We call <code>wage edu age</code> a <strong>varlist</strong>.</p>
+<h2 id="your-first-do-file-complete-walkthrough">Your First Do File - Complete Walkthrough</h2>
+<h3 id="critical-first-step-file-paths">⚠️ Critical First Step: File Paths</h3>
+<p><strong>The file paths in this example are specific to the instructor's computer and WILL NOT WORK on your machine!</strong></p>
+<p><strong>Before running anything, you must:</strong>
+1. <strong>Change the paths</strong> to match folders on your computer, OR
+2. <strong>Use the <code>cd</code> command</strong> (recommended):</p>
+<pre><code class="language-stata">cd &quot;C:\Users\YourName\Documents\Econometrics&quot;
+</code></pre>
+<p><em>Note! Mac Users should use "slashes" instead of backslashes in the cd command</em> 
+   Then use shorter paths like log using "log_session_1.log"</p>
+<h3 id="how-to-run-code">How to Run Code</h3>
+<ul>
+<li><strong>Method 1</strong>: Copy code to Command Window and press <code>Enter</code></li>
+<li><strong>Method 2</strong>: Use the Do-file Editor:</li>
+<li>Press <code>Ctrl+D</code> to run current line</li>
+<li>Highlight code and press <code>Ctrl+D</code> to run selection</li>
+<li>Click "Execute" button in toolbar</li>
+</ul>
+<hr />
+<h3 id="code-walkthrough">Code Walkthrough</h3>
+<h4 id="1-starting-the-session">1. Starting the Session</h4>
+<pre><code class="language-stata">log using &quot;E:\009 INTRODUCTION TO ECONOMETRICS (ET4) - a.a. 2024-25\STATA session 1-20250925\Log file\log_session_1_part1.log&quot;, replace
+</code></pre>
+<ul>
+<li><strong>Command</strong>: <code>log using</code></li>
+<li><strong>Purpose</strong>: Starts recording everything in Results Window to a file</li>
+<li><strong>Option</strong>: <code>replace</code> overwrites existing file with same name</li>
+</ul>
+<pre><code class="language-stata">clear all
+</code></pre>
+<ul>
+<li><strong>Command</strong>: <code>clear all</code></li>
+<li><strong>Purpose</strong>: Clears STATA's memory - removes any loaded data and resets environment. Perfect for starting fresh.</li>
+</ul>
+<h4 id="2-loading-data">2. Loading Data</h4>
+<pre><code class="language-stata">webuse census.dta, clear
+</code></pre>
+<ul>
+<li><strong>Command</strong>: <code>webuse</code></li>
+<li><strong>Purpose</strong>: Downloads example dataset from STATA's online repository</li>
+<li><strong>Dataset</strong>: <code>census.dta</code></li>
+<li><strong>Option</strong>: <code>clear</code> loads new dataset, dropping any current data</li>
+</ul>
+<pre><code class="language-stata">save &quot;E:\009 INTRODUCTION TO ECONOMETRICS (ET4) - a.a. 2024-25\STATA session 1-20250925\Dataset\census.dta&quot;, replace
+</code></pre>
+<ul>
+<li><strong>Command</strong>: <code>save</code></li>
+<li><strong>Purpose</strong>: Saves dataset to your computer</li>
+<li><strong>Option</strong>: <code>replace</code> overwrites existing file</li>
+</ul>
+<h4 id="3-initial-data-exploration">3. Initial Data Exploration</h4>
+<pre><code class="language-stata">browse
+</code></pre>
+<ul>
+<li><strong>Command</strong>: <code>browse</code></li>
+<li><strong>Purpose</strong>: Opens Data Editor in view mode for visual data inspection</li>
+<li><strong>Tip</strong>: Close after checking - don't make manual changes here</li>
+</ul>
+<pre><code class="language-stata">describe
+</code></pre>
+<ul>
+<li><strong>Command</strong>: <code>describe</code></li>
+<li><strong>Purpose</strong>: Shows variable names, storage types, formats, and labels</li>
+<li><strong>Tip</strong>: Use <code>describe, short</code> for condensed output</li>
+</ul>
+<pre><code class="language-stata">summarize
+</code></pre>
+<ul>
+<li><strong>Command</strong>: <code>summarize</code></li>
+<li><strong>Purpose</strong>: Provides count, mean, standard deviation, min, and max for numeric variables</li>
+<li><strong>Enhanced</strong>: <code>summarize, detail</code> gives medians, percentiles, skewness, kurtosis</li>
+</ul>
+<h3 id="creating-and-manipulating-variables">Creating and Manipulating Variables</h3>
+<h4 id="generating-new-variables">Generating New Variables</h4>
+<pre><code class="language-stata">generate kids_total = poplt5 + pop5_17
+</code></pre>
+<ul>
+<li><strong>Command</strong>: <code>generate</code> (or <code>gen</code>)</li>
+<li><strong>Purpose</strong>: Creates new variable <code>kids_total</code> as sum of two variables</li>
+<li><strong>Important</strong>: If any value is missing (<code>.</code>), the result will be missing</li>
+</ul>
+<pre><code class="language-stata">generate has_kids = (kids_total &gt; 0)
+</code></pre>
+<ul>
+<li><strong>Command</strong>: <code>generate</code> with logical expression</li>
+<li><strong>Purpose</strong>: Creates dummy variable <code>has_kids</code> (1 if true, 0 if false)</li>
+</ul>
+<h4 id="modifying-dataset-structure">Modifying Dataset Structure</h4>
+<pre><code class="language-stata">drop medage
+</code></pre>
+<ul>
+<li><strong>Command</strong>: <code>drop</code></li>
+<li><strong>Purpose</strong>: Permanently removes variable from dataset</li>
+<li><strong>Warning</strong>: Irreversible in current session! Save backup first if unsure.</li>
+</ul>
+<pre><code class="language-stata">rename (pop popurban) (population urban_population)
+</code></pre>
+<ul>
+<li><strong>Command</strong>: <code>rename</code></li>
+<li><strong>Purpose</strong>: Renames multiple variables at once</li>
+<li><strong>Tip</strong>: Use descriptive but concise names</li>
+</ul>
+<h4 id="advanced-variable-creation">Advanced Variable Creation</h4>
+<pre><code class="language-stata">gen pop_less17_more65 = poplt5 + pop5_17 + pop65p
+</code></pre>
+<ul>
+<li><strong>Purpose</strong>: Sums three age groups</li>
+<li><strong>Alternative</strong>: Consider <code>egen rowtotal()</code> if you want to treat missing values as zero</li>
+</ul>
+<pre><code class="language-stata">gen death_r = .
+replace death_r = (death/population)*1000
+</code></pre>
+<ul>
+<li><strong>Pattern</strong>: Initialize as missing, then calculate</li>
+<li><strong>Purpose</strong>: Creates death rate per 1,000 inhabitants</li>
+<li><strong>One-line alternative</strong>: <code>gen death_r = (death/population)*1000</code></li>
+</ul>
+<h4 id="creating-dummy-variables-two-methods">Creating Dummy Variables - Two Methods</h4>
+<pre><code class="language-stata">* Method 1: Using replace with conditions
+gen south = .
+replace south = 1 if region == 3
+replace south = 0 if region == 1 | region == 2 | region == 4
+</code></pre>
+<pre><code class="language-stata">* Method 2: Using logical expression (Recommended)
+gen south2 = (region == 3)
+</code></pre>
+<ul>
+<li><strong>Purpose</strong>: Both create a dummy variable for southern regions</li>
+<li><strong>Preferred</strong>: Method 2 is more efficient - STATA automatically converts <code>true</code> to <code>1</code> and <code>false</code> to <code>0</code></li>
+</ul>
+<pre><code class="language-stata">browse region south south2
+</code></pre>
+<ul>
+<li><strong>Purpose</strong>: Compare both methods visually to verify they produce identical results</li>
+</ul>
+<h3 id="adding-labels-for-clarity">Adding Labels for Clarity</h3>
+<h4 id="variable-labels">Variable Labels</h4>
+<pre><code class="language-stata">label variable death_r &quot;death rate per 1,000 inhabitants&quot;
+</code></pre>
+<ul>
+<li><strong>Command</strong>: <code>label variable</code></li>
+<li><strong>Purpose</strong>: Adds descriptive label that appears in output tables</li>
+<li><strong>Best Practice</strong>: Always label your variables for readability</li>
+</ul>
+<h4 id="value-labels">Value Labels</h4>
+<pre><code class="language-stata">label define region 1 &quot;North-East&quot; 2 &quot;North-Centre&quot; 3 &quot;South&quot; 4 &quot;West&quot;
+label values region region
+</code></pre>
+<ul>
+<li><strong>Command</strong>: <code>label define</code> + <code>label values</code></li>
+<li><strong>Purpose</strong>: Maps numeric codes to meaningful text labels</li>
+<li><strong>Result</strong>: <code>tabulate region</code> will show text instead of numbers</li>
+</ul>
+<pre><code class="language-stata">label define r_south 1 &quot;1. South&quot; 0 &quot;0. NE, NC, W&quot;
+label values south r_south
+</code></pre>
+<ul>
+<li><strong>Purpose</strong>: Creates user-friendly labels for dummy variables</li>
+</ul>
+<h3 id="data-inspection">Data Inspection</h3>
+<pre><code class="language-stata">codebook region
+</code></pre>
+<ul>
+<li><strong>Command</strong>: <code>codebook</code></li>
+<li><strong>Purpose</strong>: Provides detailed variable information - counts, percentages, missing values, labels</li>
+<li><strong>Excellent for</strong>: Inspecting categorical and labeled variables</li>
+</ul>
+<h3 id="saving-and-closing">Saving and Closing</h3>
+<h4 id="save-your-work">Save Your Work</h4>
+<pre><code class="language-stata">save &quot;E:\009 INTRODUCTION TO ECONOMETRICS (ET4) - a.a. 2024-25\STATA session 1-20250925\Dataset\census2025.dta&quot;, replace
+</code></pre>
+<ul>
+<li><strong>Command</strong>: <code>save</code></li>
+<li><strong>Purpose</strong>: Writes current dataset to disk</li>
+<li><strong>Warning</strong>: <code>replace</code> overwrites without confirmation!</li>
+<li><strong>Tip</strong>: Use versioned names like <code>census2025_v1.dta</code> to keep backups</li>
+</ul>
+<h4 id="end-session-properly">End Session Properly</h4>
+<pre><code class="language-stata">log close
+</code></pre>
+<ul>
+<li><strong>Command</strong>: <code>log close</code></li>
+<li><strong>Purpose</strong>: Closes log file and ensures all content is saved to disk</li>
+<li><strong>Important</strong>: Always close your log files!</li>
+</ul>
+<hr />
+<h2 id="pro-tip-comment-your-code">💡 Pro-Tip: Comment Your Code!</h2>
+<p>Use comments to explain what your code does - this helps tremendously when you review your work later:</p>
+<pre><code class="language-stata">* This section creates demographic analysis variables
+gen kids_total = poplt5 + pop5_17  // Total number of children
+gen has_kids = (kids_total &gt; 0)    // Dummy variable: 1 if state has any kids
+
+* Single-line comments can use * or //
+* Multi-line comments use /* ... */
+</code></pre>
+<h2 id="next-steps">Next Steps</h2>
+<ol>
+<li><strong>Practice</strong> with the training sessions</li>
+<li><strong>Experiment</strong> with modifying the code</li>
+<li><strong>Make mistakes</strong> and learn from them</li>
+<li><strong>Use the log files</strong> to track what went wrong</li>
+<li><strong>Ask questions</strong> when you're stuck</li>
+</ol>
+<p>Remember: Econometrics is learned by doing, not just by reading. Happy analyzing!</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.f55a23d4.min.js"></script>
+      
+    
+  </body>
+</html>
