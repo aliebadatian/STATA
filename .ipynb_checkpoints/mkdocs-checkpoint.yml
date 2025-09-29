@@ -1,0 +1,6 @@
+site_name: "Stata Tutorial"
+theme:
+  name: material
+nav:
+  - Home: index.md
+  - STATA Basics: STATA first.md
