@@ -3,4 +3,4 @@ theme:
   name: material
 nav:
   - Home: index.md
-  - STATA Basics: STATA first.md
+  - STATA Basics: STATA1.md
