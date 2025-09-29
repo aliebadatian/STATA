@@ -9,6 +9,8 @@
       
       
       
+        <link rel="prev" href="..">
+      
       
       
       <link rel="icon" href="../assets/images/favicon.png">
@@ -16,7 +18,7 @@
     
     
       
-        <title>STATA Beginner's Tutorial: Your First Steps in Econometrics - Stata Tutorial</title>
+        <title>STATA Basics - Stata Tutorial</title>
       
     
     
@@ -94,7 +96,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              STATA Beginner's Tutorial: Your First Steps in Econometrics
+              STATA Basics
             
           </span>
         </div>
@@ -209,10 +211,32 @@
       
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../STATA first.md" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    STATA Basics
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -223,6 +247,371 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      Introduction
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-stata" class="md-nav__link">
+    <span class="md-ellipsis">
+      What is STATA?
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="What is STATA?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#why-stata" class="md-nav__link">
+    <span class="md-ellipsis">
+      Why STATA?
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#stata-interface-tour" class="md-nav__link">
+    <span class="md-ellipsis">
+      STATA Interface Tour
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-a-dataset" class="md-nav__link">
+    <span class="md-ellipsis">
+      What is a Dataset?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#essential-stata-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Essential STATA Workflow
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Essential STATA Workflow">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-do-file-do-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Do File (.do file)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-log-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Log File
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-data-editor" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Data Editor
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#typical-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Typical Workflow:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#understanding-stata-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      Understanding STATA Commands
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Understanding STATA Commands">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      Examples:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#your-first-do-file-complete-walkthrough" class="md-nav__link">
+    <span class="md-ellipsis">
+      Your First Do File - Complete Walkthrough
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Your First Do File - Complete Walkthrough">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#critical-first-step-file-paths" class="md-nav__link">
+    <span class="md-ellipsis">
+      ⚠️ Critical First Step: File Paths
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-to-run-code" class="md-nav__link">
+    <span class="md-ellipsis">
+      How to Run Code
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#code-walkthrough" class="md-nav__link">
+    <span class="md-ellipsis">
+      Code Walkthrough
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Code Walkthrough">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-starting-the-session" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Starting the Session
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-loading-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Loading Data
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-initial-data-exploration" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Initial Data Exploration
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#creating-and-manipulating-variables" class="md-nav__link">
+    <span class="md-ellipsis">
+      Creating and Manipulating Variables
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Creating and Manipulating Variables">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#generating-new-variables" class="md-nav__link">
+    <span class="md-ellipsis">
+      Generating New Variables
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#modifying-dataset-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      Modifying Dataset Structure
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#advanced-variable-creation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Advanced Variable Creation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#creating-dummy-variables-two-methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      Creating Dummy Variables - Two Methods
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#adding-labels-for-clarity" class="md-nav__link">
+    <span class="md-ellipsis">
+      Adding Labels for Clarity
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Adding Labels for Clarity">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#variable-labels" class="md-nav__link">
+    <span class="md-ellipsis">
+      Variable Labels
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#value-labels" class="md-nav__link">
+    <span class="md-ellipsis">
+      Value Labels
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data-inspection" class="md-nav__link">
+    <span class="md-ellipsis">
+      Data Inspection
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#saving-and-closing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Saving and Closing
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Saving and Closing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#save-your-work" class="md-nav__link">
+    <span class="md-ellipsis">
+      Save Your Work
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#end-session-properly" class="md-nav__link">
+    <span class="md-ellipsis">
+      End Session Properly
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pro-tip-comment-your-code" class="md-nav__link">
+    <span class="md-ellipsis">
+      💡 Pro-Tip: Comment Your Code!
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      Next Steps
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
