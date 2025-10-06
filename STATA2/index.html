@@ -1,0 +1,1157 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../STATA1/">
+      
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.20">
+    
+    
+      
+        <title>Descriptive Statistics - Stata Tutorial</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.e53b48f4.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#stata-beginners-tutorial-descriptive-statistics" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Stata Tutorial" class="md-header__button md-logo" aria-label="Stata Tutorial" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Stata Tutorial
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Descriptive Statistics
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Stata Tutorial" class="md-nav__button md-logo" aria-label="Stata Tutorial" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Stata Tutorial
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../STATA1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    STATA Basics
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Descriptive Statistics
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Descriptive Statistics
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#intro-key-concepts" class="md-nav__link">
+    <span class="md-ellipsis">
+      Intro &amp; Key Concepts
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Intro &amp; Key Concepts">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#learning-goals" class="md-nav__link">
+    <span class="md-ellipsis">
+      Learning Goals
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-getting-started" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Getting Started
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Getting Started">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#opening-a-log-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      Opening a Log File
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-setting-your-working-directory" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Setting Your Working Directory
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-loading-the-dataset" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Loading the Dataset
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-getting-to-know-your-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Getting to Know Your Data
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-understanding-variable-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Understanding Variable Types
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-checking-for-missing-values" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. Checking for Missing Values
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-creating-a-working-copy" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. Creating a Working Copy
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-summary-statistics" class="md-nav__link">
+    <span class="md-ellipsis">
+      8. Summary Statistics
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-creating-new-variables" class="md-nav__link">
+    <span class="md-ellipsis">
+      9. Creating New Variables
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-labeling-variables" class="md-nav__link">
+    <span class="md-ellipsis">
+      10. Labeling Variables
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-basic-visualizations" class="md-nav__link">
+    <span class="md-ellipsis">
+      11. Basic Visualizations
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-data-cleaning" class="md-nav__link">
+    <span class="md-ellipsis">
+      12. Data Cleaning
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#13-wages-and-education" class="md-nav__link">
+    <span class="md-ellipsis">
+      13. Wages and Education
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#14-from-log-wage-to-actual-wage" class="md-nav__link">
+    <span class="md-ellipsis">
+      14. From Log-Wage to Actual Wage
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#15-log-transformations" class="md-nav__link">
+    <span class="md-ellipsis">
+      15. Log Transformations
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#16-exporting-graphs" class="md-nav__link">
+    <span class="md-ellipsis">
+      16. Exporting Graphs
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#17-conditional-means-binning-by-income" class="md-nav__link">
+    <span class="md-ellipsis">
+      17. Conditional Means: Binning by Income
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#18-smoothed-relationships-loess" class="md-nav__link">
+    <span class="md-ellipsis">
+      18. Smoothed Relationships (LOESS)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#19-combine-graphs" class="md-nav__link">
+    <span class="md-ellipsis">
+      19. Combine Graphs
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#20-labeling-categories" class="md-nav__link">
+    <span class="md-ellipsis">
+      20. Labeling Categories
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#21-simple-linear-regression" class="md-nav__link">
+    <span class="md-ellipsis">
+      21. Simple Linear Regression
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#22-adding-control-variables" class="md-nav__link">
+    <span class="md-ellipsis">
+      22. Adding Control Variables
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#23-saving-your-work" class="md-nav__link">
+    <span class="md-ellipsis">
+      23. Saving Your Work
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#intro-key-concepts" class="md-nav__link">
+    <span class="md-ellipsis">
+      Intro &amp; Key Concepts
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Intro &amp; Key Concepts">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#learning-goals" class="md-nav__link">
+    <span class="md-ellipsis">
+      Learning Goals
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-getting-started" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Getting Started
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Getting Started">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#opening-a-log-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      Opening a Log File
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-setting-your-working-directory" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Setting Your Working Directory
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-loading-the-dataset" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Loading the Dataset
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-getting-to-know-your-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Getting to Know Your Data
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-understanding-variable-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Understanding Variable Types
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-checking-for-missing-values" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. Checking for Missing Values
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-creating-a-working-copy" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. Creating a Working Copy
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-summary-statistics" class="md-nav__link">
+    <span class="md-ellipsis">
+      8. Summary Statistics
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-creating-new-variables" class="md-nav__link">
+    <span class="md-ellipsis">
+      9. Creating New Variables
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-labeling-variables" class="md-nav__link">
+    <span class="md-ellipsis">
+      10. Labeling Variables
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-basic-visualizations" class="md-nav__link">
+    <span class="md-ellipsis">
+      11. Basic Visualizations
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-data-cleaning" class="md-nav__link">
+    <span class="md-ellipsis">
+      12. Data Cleaning
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#13-wages-and-education" class="md-nav__link">
+    <span class="md-ellipsis">
+      13. Wages and Education
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#14-from-log-wage-to-actual-wage" class="md-nav__link">
+    <span class="md-ellipsis">
+      14. From Log-Wage to Actual Wage
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#15-log-transformations" class="md-nav__link">
+    <span class="md-ellipsis">
+      15. Log Transformations
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#16-exporting-graphs" class="md-nav__link">
+    <span class="md-ellipsis">
+      16. Exporting Graphs
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#17-conditional-means-binning-by-income" class="md-nav__link">
+    <span class="md-ellipsis">
+      17. Conditional Means: Binning by Income
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#18-smoothed-relationships-loess" class="md-nav__link">
+    <span class="md-ellipsis">
+      18. Smoothed Relationships (LOESS)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#19-combine-graphs" class="md-nav__link">
+    <span class="md-ellipsis">
+      19. Combine Graphs
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#20-labeling-categories" class="md-nav__link">
+    <span class="md-ellipsis">
+      20. Labeling Categories
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#21-simple-linear-regression" class="md-nav__link">
+    <span class="md-ellipsis">
+      21. Simple Linear Regression
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#22-adding-control-variables" class="md-nav__link">
+    <span class="md-ellipsis">
+      22. Adding Control Variables
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#23-saving-your-work" class="md-nav__link">
+    <span class="md-ellipsis">
+      23. Saving Your Work
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="stata-beginners-tutorial-descriptive-statistics">STATA Beginner's Tutorial: Descriptive Statistics</h1>
+<h2 id="intro-key-concepts">Intro &amp; Key Concepts</h2>
+<p>In this session, we will show you how to do explanatory data analysis (EDA) using descriptive statistics in STATA. The main goal here is to find insights about your data using different methods of EDA. In other words, we want to look at our data from every possible angle to understand it well before doing statistical inference. All the famous econometrics works you can find around the globe have a good and in-depth EDA sections.</p>
+<p>Descriptive statistics help us summarize and understand our data. We use them to:<br />
+- Calculate averages and typical values (mean, median)<br />
+- Measure how spread out the data is (standard deviation)<br />
+- Find the smallest and largest values (min, max)<br />
+- Count how many cases fall into each category (frequencies)  </p>
+<p>This helps us check for errors, understand patterns, and generate hypotheses before moving to more advanced analysis.</p>
+<h3 id="learning-goals">Learning Goals</h3>
+<p>In this session, we will:<br />
+- Learn how to explore a dataset using descriptive statistics and graphs<br />
+- Understand how to clean and prepare data for analysis<br />
+- Create new variables and visualize relationships<br />
+- Practice interpreting numerical and graphical outputs<br />
+- Run simple linear regressions with and without control variables  </p>
+<h2 id="1-getting-started">1. Getting Started</h2>
+<p>As always, we start <strong>from a clean slate</strong> to avoid conflicts with previous datasets.</p>
+<pre><code>clear all
+</code></pre>
+<p>This command removes any dataset or variable currently stored in memory.</p>
+<hr />
+<h3 id="opening-a-log-file">Opening a Log File</h3>
+<p>To keep a record of what you do in Stata (commands and results), always start a <strong>log file</strong>:</p>
+<pre><code>log using &quot;log_stata_session2.log&quot;, replace
+</code></pre>
+<ul>
+<li><code>replace</code> ensures that if a file with the same name exists, it will be overwritten</li>
+<li>You can later open this <code>.log</code> file in any text editor or Word</li>
+</ul>
+<hr />
+<h2 id="2-setting-your-working-directory">2. Setting Your Working Directory</h2>
+<p>Before loading any data, Stata needs to know <strong>where your files are stored</strong>. By setting the directory at the start, you don't need to use full paths for all your do-files and folders. You simply put the directory path first, and then use this pre-set directory to navigate other files throughout your project. These steps become more important as you start working on real projects with lots of coding.</p>
+<p>You can set the working directory in two ways:</p>
+<p><strong>Option 1 (Menu):</strong><br />
+Go to <strong>File → Change working directory</strong>, then select the folder where your datasets and files are stored.</p>
+<p><strong>Option 2 (Command):</strong></p>
+<pre><code>cd &quot;\Path&quot;
+</code></pre>
+<hr />
+<h2 id="3-loading-the-dataset">3. Loading the Dataset</h2>
+<p>The dataset for today's exercise is <code>Mroz.dta</code>. It contains information on married women, including their age, education, family income, labor force participation, and wages.</p>
+<p>If you have installed the <code>causaldata</code> package:</p>
+<pre><code>ssc install causaldata 
+use causaldata mroz, clear 
+save &quot;Mroz.dta&quot;, replace
+</code></pre>
+<p>Otherwise, download it manually from <a href="https://github.com/NickCH-K/causaldata/tree/main/Stata">Nick Huntington-Klein's GitHub</a> or your Moodle page, save it in your working directory, and open it with:</p>
+<pre><code>use &quot;Mroz.dta&quot;, clear
+</code></pre>
+<hr />
+<h2 id="4-getting-to-know-your-data">4. Getting to Know Your Data</h2>
+<p>Let's look at what's inside the dataset.</p>
+<pre><code>describe
+</code></pre>
+<p>This command lists <strong>all variables</strong>, their <strong>storage type</strong>, <strong>labels</strong>, and <strong>number of observations</strong>.</p>
+<p>You should recognize variables such as:<br />
+- <code>lfp</code>: labor force participation (1 if working, 0 otherwise)<br />
+- <code>age</code>: woman's age<br />
+- <code>wc</code>: college education dummy (1 if college graduate)<br />
+- <code>lwg</code>: log of wage<br />
+- <code>inc</code>: family income<br />
+- <code>k5</code>, <code>k618</code>: number of children under 5 and aged 6–18  </p>
+<p>Now let's get more detailed information:</p>
+<pre><code>codebook
+</code></pre>
+<p>This shows us unique values, missing values, and gives us a better sense of each variable's characteristics.</p>
+<blockquote>
+<p>💡 Always check variable labels carefully. this helps avoid confusion later.</p>
+</blockquote>
+<hr />
+<h2 id="5-understanding-variable-types">5. Understanding Variable Types</h2>
+<p>In econometrics, we work with different types of variables:</p>
+<ul>
+<li><strong>Continuous variables</strong> (like <code>age</code>, <code>inc</code>, <code>lwg</code>): Can take on many numeric values  </li>
+<li><strong>Categorical/Binary variables</strong> (like <code>lfp</code>, <code>wc</code>): Take on limited values, usually categories or yes/no  </li>
+</ul>
+<p>We use different commands for different variable types, as you'll see in the next sections.</p>
+<hr />
+<h2 id="6-checking-for-missing-values">6. Checking for Missing Values</h2>
+<p>Real data often has missing values, which Stata marks with a dot (<code>.</code>). Let's check if our dataset has any missing values:  </p>
+<pre><code>misstable summarize
+</code></pre>
+<p>Alternatively, you can use:  </p>
+<pre><code>summarize, detail
+</code></pre>
+<p>Look for variables with very low counts; this might indicate missing data. When we use <code>keep if</code> or <code>drop if</code> commands later, Stata will automatically exclude observations with missing values in those variables.  </p>
+<hr />
+<h2 id="7-creating-a-working-copy">7. Creating a Working Copy</h2>
+<p>Before we start cleaning and modifying the data, let's preserve the original dataset by creating a working copy:</p>
+<pre><code>save &quot;Mroz_working.dta&quot;, replace
+</code></pre>
+<p>Now all our changes will be saved to this working file, keeping the original data safe.</p>
+<hr />
+<h2 id="8-summary-statistics">8. Summary Statistics</h2>
+<p>Let's explore our variables using summary statistics.</p>
+<p><strong>For continuous variables</strong> (like age, income):</p>
+<pre><code>summarize age
+</code></pre>
+<p>This gives you:
+- <strong>Mean:</strong> the average age
+- <strong>Std. Dev.:</strong> how spread out ages are
+- <strong>Min/Max:</strong> the youngest and oldest women in the sample</p>
+<p>For more detailed information:</p>
+<pre><code>summarize age, detail
+</code></pre>
+<p>This adds the <strong>median</strong> (middle value), percentiles, and information about the distribution. The median is often better than the mean when data has extreme values.</p>
+<p><strong>For categorical variables</strong> (like labor force participation):</p>
+<pre><code>tabulate lfp
+</code></pre>
+<p>This displays the <strong>number</strong> and <strong>percentage</strong> of women who work (<code>lfp = 1</code>) and those who don't (<code>lfp = 0</code>).</p>
+<blockquote>
+<p>💡 The tabulate command is essential for exploring categorical variables (binary or discrete).</p>
+</blockquote>
+<hr />
+<h2 id="9-creating-new-variables">9. Creating New Variables</h2>
+<p>The dataset has two variables for children:
+- <code>k5</code>: children under age 5
+- <code>k618</code>: children aged 6 to 18</p>
+<p>Let's combine them into one total count:</p>
+<pre><code>gen n_children = k5 + k618
+</code></pre>
+<p>Now let's look at the distribution:</p>
+<pre><code>tabulate n_children
+</code></pre>
+<p>This shows us how many families have 0, 1, 2, etc. children, which is more informative than just the average.</p>
+<hr />
+<h2 id="10-labeling-variables">10. Labeling Variables</h2>
+<p>To make your dataset readable and presentable:</p>
+<pre><code>label var n_children &quot;Total number of children&quot;
+</code></pre>
+<p>Good labeling helps you and others understand what each variable represents.</p>
+<hr />
+<h2 id="11-basic-visualizations">11. Basic Visualizations</h2>
+<p>Graphs help us see patterns that numbers alone might miss.</p>
+<p><strong>For distributions</strong> of continuous variables:</p>
+<pre><code>histogram wage, frequency
+</code></pre>
+<p>This shows the shape of the wage distribution , is it normal? Skewed?</p>
+<p><strong>For comparing groups</strong> (categorical vs continuous):</p>
+<pre><code>graph box wage, over(wc)
+</code></pre>
+<p>This boxplot shows how wages compare between college graduates (<code>wc = 1</code>) and non-graduates (<code>wc = 0</code>). It displays the median, spread, and any unusual values.</p>
+<p><strong>For relationships between two continuous variables:</strong></p>
+<pre><code>scatter inc wage
+</code></pre>
+<p>This creates a <strong>scatterplot</strong>, where each point is one woman. Look for the overall pattern: "do higher-income families correspond to higher wages?"</p>
+<hr />
+<h2 id="12-data-cleaning">12. Data Cleaning</h2>
+<p>Now let's focus our analysis on working women:</p>
+<pre><code>keep if lfp == 1
+</code></pre>
+<p>After this command, your dataset will only contain women who are working (<code>lfp = 1</code>).</p>
+<p>Check your data for unrealistic values:</p>
+<pre><code>summarize
+</code></pre>
+<p>If you notice <strong>negative family income</strong>, that's not reasonable, so we remove those observations:</p>
+<pre><code>drop if inc &lt; 0
+</code></pre>
+<blockquote>
+<p>⚠️ Always double-check before dropping data! You can inspect outliers with:</p>
+<p><code>list inc if inc &lt; 0</code></p>
+</blockquote>
+<hr />
+<h2 id="13-wages-and-education">13. Wages and Education</h2>
+<p>Let's explore how <strong>education</strong> relates to <strong>earnings</strong>.<br />
+The variable <code>wc</code> indicates whether a woman has a college education (1 = yes, 0 = no).<br />
+The variable <code>lwg</code> represents the <strong>log of the wage</strong>.</p>
+<p>Let's compare average log-wages across education levels:</p>
+<pre><code>summarize lwg if wc == 0
+summarize lwg if wc == 1
+</code></pre>
+<p>Or use one command to summarize both groups together:</p>
+<pre><code>table wc, stat(freq) stat(mean lwg)
+</code></pre>
+<blockquote>
+<p>💡 Remember: "log-wage" is in logarithmic scale. The difference in log-wages can be interpreted as a <em>percentage difference</em> in average wages.</p>
+</blockquote>
+<hr />
+<h2 id="14-from-log-wage-to-actual-wage">14. From Log-Wage to Actual Wage</h2>
+<p>We can convert log-wages back into real wages using the exponential function:</p>
+<pre><code>gen wage = exp(lwg)
+</code></pre>
+<p>Now repeat the comparison:</p>
+<pre><code>summarize wage if wc == 0
+summarize wage if wc == 1
+table wc, stat(freq) stat(mean wage)
+</code></pre>
+<p>This gives the <strong>average wage in actual monetary units</strong>, making the results easier to interpret.</p>
+<hr />
+<h2 id="15-log-transformations">15. Log Transformations</h2>
+<p>Sometimes variables like income and wages are very skewed.<br />
+To make relationships more linear and interpretable, we log-transform income:</p>
+<pre><code>gen linc = log(inc)
+</code></pre>
+<p>Then plot the relationship again:</p>
+<pre><code>scatter linc lwg
+</code></pre>
+<p>You should now see a clearer linear relationship.</p>
+<hr />
+<h2 id="16-exporting-graphs">16. Exporting Graphs</h2>
+<p>To save a graph that's currently open:</p>
+<pre><code>graph export &quot;ex1_graph1.png&quot;, replace
+</code></pre>
+<p>This saves it in your working directory as a <code>.png</code> image.</p>
+<hr />
+<h2 id="17-conditional-means-binning-by-income">17. Conditional Means: Binning by Income</h2>
+<p>Let's group income into 10 categories and compute average wage within each group:</p>
+<pre><code>egen inc_cat = cut(inc), group(10) label
+table inc_cat, stat(mean wage)
+</code></pre>
+<p>You now have a simple <strong>nonparametric summary</strong> , the mean wage for each income decile.</p>
+<hr />
+<h2 id="18-smoothed-relationships-loess">18. Smoothed Relationships (LOESS)</h2>
+<p>To visualize a smooth curve that shows the average trend:</p>
+<pre><code>lowess linc lwg
+</code></pre>
+<p>This nonparametric regression (LOESS) fits a smooth line through the scatterplot.</p>
+<hr />
+<h2 id="19-combine-graphs">19. Combine Graphs</h2>
+<p>We can combine:
+- A scatterplot (raw data),
+- A linear regression fit, and
+- A LOESS smooth curve:</p>
+<pre><code>twoway lfit linc lwg || lowess linc lwg || scatter linc lwg
+graph export &quot;ex1_graph2.png&quot;, replace
+</code></pre>
+<p>This gives a full picture:
+- <strong>Blue line:</strong> linear fit
+- <strong>Red line:</strong> LOESS smooth
+- <strong>Dots:</strong> observed data points</p>
+<hr />
+<h2 id="20-labeling-categories">20. Labeling Categories</h2>
+<p>To make your income categories readable:</p>
+<pre><code>label var inc_cat &quot;Income category&quot;
+label define inc_cat_lb 0 &quot;less 9k&quot; 1 &quot;between 9k and 10.95k&quot; 2 &quot;between 10.95k and 13.3k&quot; 3 &quot;between 13.3k and 14.9k&quot; 4 &quot;between 14.9k and 17.09k&quot; 5 &quot;between 17.09k and 18.56k&quot; 6 &quot;between 18.56k and 21.16k&quot; 7 &quot;between 21.16k and 25.2k&quot; 8 &quot;between 25.2k and 31.8k&quot; 9 &quot;more 31.8k&quot;, replace
+label values inc_cat inc_cat_lb
+</code></pre>
+<hr />
+<h2 id="21-simple-linear-regression">21. Simple Linear Regression</h2>
+<p>Now let's model the relationship between <strong>log-wage</strong> and <strong>log-income</strong>:</p>
+<pre><code>reg lwg linc
+</code></pre>
+<p>The output tells you:<br />
+- The estimated coefficient on <code>linc</code>: interpreted as <strong>elasticity</strong> (a 1% increase in income → β% increase in wage)<br />
+- <code>R-squared</code>: how much variation in wages is explained by income alone<br />
+- <code>_cons</code>: the constant term (predicted wage when income is zero)  </p>
+<blockquote>
+<p>💡 <strong>Important:</strong> An elasticity tells us the percentage change in one variable (wage) given a 1% change in another variable (income).</p>
+</blockquote>
+<hr />
+<h2 id="22-adding-control-variables">22. Adding Control Variables</h2>
+<p>To make your regression more realistic, add controls for:
+- Age and its squared term (to capture nonlinear effects)
+- Education (<code>wc</code>)
+- Number of children (<code>n_children</code>)</p>
+<pre><code>reg lwg linc c.age##c.age wc n_children
+</code></pre>
+<p><strong>Interpretation:</strong>
+- The sign and size of <code>linc</code> show the partial relationship between income and wage, <em>holding other factors constant</em>
+- The <code>age</code> and <code>age²</code> terms capture how wages vary across the life cycle
+- <code>wc</code> shows how college education affects wages</p>
+<blockquote>
+<p>⚠️ <strong>Correlation is not Causation!</strong> This regression shows a relationship between income and wage, but it does not prove that higher income <em>causes</em> higher wages. There could be omitted variables (like ability, experience, or industry) that influence both. We add control variables to try and account for this, but we must always be cautious in our interpretation.</p>
+</blockquote>
+<hr />
+<h2 id="23-saving-your-work">23. Saving Your Work</h2>
+<p>Once finished, save your dataset with all new variables and cleaned data:</p>
+<pre><code>save &quot;Mroz_session2.dta&quot;, replace
+log close
+</code></pre>
+<p>Congratulations! You've completed a comprehensive exploratory data analysis and are ready for more advanced econometric techniques.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.f55a23d4.min.js"></script>
+      
+    
+  </body>
+</html>
