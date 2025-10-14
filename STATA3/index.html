@@ -1,0 +1,964 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../STATA2/">
+      
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.20">
+    
+    
+      
+        <title>Data Exploration and Regression - Stata Tutorial</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.e53b48f4.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#stata-tutorial-session-3-data-exploration-and-regression-practice" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Stata Tutorial" class="md-header__button md-logo" aria-label="Stata Tutorial" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Stata Tutorial
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Data Exploration and Regression
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Stata Tutorial" class="md-nav__button md-logo" aria-label="Stata Tutorial" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Stata Tutorial
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../STATA1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    STATA Basics
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../STATA2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Descriptive Statistics
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Data Exploration and Regression
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Data Exploration and Regression
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction-motivation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Introduction &amp; Motivation
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part-1-exploring-student-data-regressions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Part 1 — Exploring Student Data &amp; Regressions
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Part 1 — Exploring Student Data &amp; Regressions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-load-the-dataset-and-inspect-variables" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Load the Dataset and Inspect Variables
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-create-an-overall-score-variable" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Create an Overall “Score” Variable
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-compute-averages-by-gender-and-overall" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Compute Averages by Gender (and Overall)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-tabulate-program-by-school-type" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Tabulate Program by School Type
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-percentage-of-students-enrolled-in-english-within-public-schools" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Percentage of Students Enrolled in English (within Public Schools)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-regression-program-type-mean-score" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. Regression: Program Type → Mean Score
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-regression-with-controls-ses-school-type" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. Regression with Controls: SES &amp; School Type
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#8-predicted-mean-scores-for-specific-profiles" class="md-nav__link">
+    <span class="md-ellipsis">
+      8. Predicted Mean Scores for Specific Profiles
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part-2-restaurant-inspections-nonlinear-models" class="md-nav__link">
+    <span class="md-ellipsis">
+      Part 2 — Restaurant Inspections &amp; Nonlinear Models
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Part 2 — Restaurant Inspections &amp; Nonlinear Models">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-load-restaurant-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Load Restaurant Data
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-reproduce-table-132-regressions" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Reproduce Table 13.2 Regressions
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-export-regression-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Export Regression Table
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-check-for-nonlinearity-in-number-of-locations" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Check for Nonlinearity in Number of Locations
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-marginal-effects-of-locations" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Marginal Effects of Locations
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-interaction-with-weekend-inspections" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. Interaction with Weekend Inspections
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conceptual-takeaways-guidance" class="md-nav__link">
+    <span class="md-ellipsis">
+      Conceptual Takeaways &amp; Guidance
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction-motivation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Introduction &amp; Motivation
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part-1-exploring-student-data-regressions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Part 1 — Exploring Student Data &amp; Regressions
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Part 1 — Exploring Student Data &amp; Regressions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-load-the-dataset-and-inspect-variables" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Load the Dataset and Inspect Variables
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-create-an-overall-score-variable" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Create an Overall “Score” Variable
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-compute-averages-by-gender-and-overall" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Compute Averages by Gender (and Overall)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-tabulate-program-by-school-type" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Tabulate Program by School Type
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-percentage-of-students-enrolled-in-english-within-public-schools" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Percentage of Students Enrolled in English (within Public Schools)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-regression-program-type-mean-score" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. Regression: Program Type → Mean Score
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-regression-with-controls-ses-school-type" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. Regression with Controls: SES &amp; School Type
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#8-predicted-mean-scores-for-specific-profiles" class="md-nav__link">
+    <span class="md-ellipsis">
+      8. Predicted Mean Scores for Specific Profiles
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part-2-restaurant-inspections-nonlinear-models" class="md-nav__link">
+    <span class="md-ellipsis">
+      Part 2 — Restaurant Inspections &amp; Nonlinear Models
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Part 2 — Restaurant Inspections &amp; Nonlinear Models">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-load-restaurant-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Load Restaurant Data
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-reproduce-table-132-regressions" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Reproduce Table 13.2 Regressions
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-export-regression-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Export Regression Table
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-check-for-nonlinearity-in-number-of-locations" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Check for Nonlinearity in Number of Locations
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-marginal-effects-of-locations" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Marginal Effects of Locations
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-interaction-with-weekend-inspections" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. Interaction with Weekend Inspections
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conceptual-takeaways-guidance" class="md-nav__link">
+    <span class="md-ellipsis">
+      Conceptual Takeaways &amp; Guidance
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="stata-tutorial-session-3-data-exploration-and-regression-practice">STATA Tutorial – Session 3: Data Exploration and Regression Practice</h1>
+<blockquote>
+<p><em>📌 Note:</em><br />
+ All the <strong>full STATA codes</strong> used in this tutorial, together with <strong>training exercises and questions</strong>, are available for download on your <strong>Moodle page</strong>. Be sure to retrieve them so you can follow along and practice.</p>
+</blockquote>
+<hr />
+<h2 id="introduction-motivation">Introduction &amp; Motivation</h2>
+<p>In this session, we continue building your skills in <em>exploratory data analysis (EDA)</em> and regression modeling. This exercises push you beyond simple summary statistics: you will create new variables, explore relationships with tabulations and regressions, test for nonlinear patterns, and interpret results in context. The goal is that by the end, you feel comfortable exploring real datasets, diagnosing patterns, and modeling relationships with control variables and interactions.</p>
+<p>We’ll work with <strong>two datasets</strong> in two parts:</p>
+<ul>
+<li><strong>Part 1</strong>: <code>hsbdemo.dta</code> — data on high school students (grades, school types, programs, socioeconomic status)  </li>
+<li><strong>Part 2</strong>: <code>restaurant_inspections.dta</code> — data on restaurant health inspection scores and number of locations  </li>
+</ul>
+<p>As usual, we will walk step by step, explaining <em>why</em> we run each command, what the output means, and what to watch out for.  </p>
+<hr />
+<h2 id="part-1-exploring-student-data-regressions">Part 1 — Exploring Student Data &amp; Regressions</h2>
+<h3 id="1-load-the-dataset-and-inspect-variables">1. Load the Dataset and Inspect Variables</h3>
+<pre><code class="language-Stata">use &quot;hsbdemo.dta&quot;, clear describe codebook female ses schtyp prog
+</code></pre>
+<ul>
+<li><code>use ... , clear</code> loads the dataset and clears any existing memory.  </li>
+<li><code>describe</code> gives you variable names, types, labels, and counts.  </li>
+<li><code>codebook</code> (for selected variables) shows you unique values, missing counts, and distributions.  </li>
+</ul>
+<p>At this point, you should check:<br />
+- What coding scheme is used (e.g. is <code>female = 0/1</code>? What values does <code>schtyp</code> take?).<br />
+- Which values of <code>prog</code> (program) exist — e.g. academic, general, vocational.  </p>
+<hr />
+<h3 id="2-create-an-overall-score-variable">2. Create an Overall “Score” Variable</h3>
+<p>We want a new variable <code>score</code> that is the average of five subject grades: <code>read, write, math, science, socst</code>.  </p>
+<pre><code>gen score = (read + write + math + science + socst) / 5 
+label variable score &quot;mean score&quot;
+</code></pre>
+<ul>
+<li><code>gen score = …</code> creates the new variable.</li>
+<li>We divide by 5 because there are five subjects.</li>
+<li><code>label variable</code> gives a human-readable label for output display.</li>
+</ul>
+<p><strong>Why do this?</strong> <br />
+Because having a single composite score simplifies analysis (fewer regressions) and gives you a summary measure of each student’s performance.</p>
+<hr />
+<h3 id="3-compute-averages-by-gender-and-overall">3. Compute Averages by Gender (and Overall)</h3>
+<p>We’d like to know how male vs. female students perform, and also the overall average.</p>
+<pre><code>bysort female: summarize score
+summarize score if female == 0 
+summarize score if female == 1 
+summarize score
+</code></pre>
+<ul>
+<li><code>bysort female: summarize score</code> runs the summary (mean, sd, min, max) separately for <code>female = 0</code> and <code>female = 1</code>.</li>
+<li>The <code>summarize … if …</code> lines isolate each group explicitly.</li>
+<li>A final <code>summarize</code> gives you the overall average.</li>
+</ul>
+<p>From the output, note the mean score for males, for females, and overall. Are there noticeable differences?</p>
+<p>⚠️ Make sure to check the number of observations in each group — differences might be due to sample sizes or missing data.</p>
+<hr />
+<h3 id="4-tabulate-program-by-school-type">4. Tabulate Program by School Type</h3>
+<p>We want two types of information:</p>
+<ol>
+<li><em>Within private schools</em>, what percentage of students attend an academic program?</li>
+<li><em>Among students in academic programs</em>, what share come from private schools?</li>
+</ol>
+<pre><code>tab schtyp prog, row 
+tab schtyp prog, col
+</code></pre>
+<ul>
+<li><code>tab … , row</code> gives row percentages (i.e. within each <code>schtyp</code>, the distribution of <code>prog</code>).</li>
+<li><code>tab … , col</code> gives column percentages (i.e. among each <code>prog</code> category, the distribution of <code>schtyp</code>).</li>
+</ul>
+<p>Interpret carefully:</p>
+<ul>
+<li>From the <code>row</code> table, read across a school type to see what proportion of its students are in each program.</li>
+<li>From the <code>col</code> table, read down a program to see how many come from each school type.</li>
+</ul>
+<hr />
+<h3 id="5-percentage-of-students-enrolled-in-english-within-public-schools">5. Percentage of Students Enrolled in English (within Public Schools)</h3>
+<p>The question is: within public schools, what fraction of students are enrolled in an English/honors program?</p>
+<p><code>tab schtyp honors, row</code></p>
+<p>Here, reading the row for <code>schtyp = public</code> gives you the proportion enrolled in <code>honors</code> within public schools.</p>
+<hr />
+<h3 id="6-regression-program-type-mean-score">6. Regression: Program Type → Mean Score</h3>
+<p>We now ask: does the <em>type of educational program</em> a student attends predict their average score?</p>
+<pre><code class="language-STATA">reg score i.prog
+</code></pre>
+<ul>
+<li><code>i.prog</code> tells STATA to treat <code>prog</code> as a categorical (factor) variable, creating dummy variables for each program (omitting one as baseline).</li>
+<li>The regression output gives coefficients for each non-baseline program: how much higher (or lower) their average score is, relative to the baseline, holding nothing else constant.</li>
+</ul>
+<p>Check:<br />
+- Which program is the omitted (baseline) category?<br />
+- Are coefficient estimates statistically significant?<br />
+- What does the constant <code>_cons</code> represent (the expected score in the omitted program)?  </p>
+<hr />
+<h3 id="7-regression-with-controls-ses-school-type">7. Regression with Controls: SES &amp; School Type</h3>
+<p>We expand the model, adding <strong>socioeconomic status (ses)</strong> and <strong>school type (schtyp)</strong> to control for background differences:</p>
+<pre><code class="language-STATA">reg score i.prog i.ses i.schtyp
+</code></pre>
+<p>With control variables, you can see:
+- Whether the gaps across <code>prog</code> categories shrink or persist after controlling for SES and school type.
+- The estimated effect of SES categories and being in a private vs public school on the mean score (relative to omitted reference groups).</p>
+<p>Interpretation steps:</p>
+<ol>
+<li>Look at each <code>i.prog</code> coefficient: is it still large after controls?</li>
+<li>Look at <code>i.ses</code> and <code>i.schtyp</code>: which levels are significant, and in which direction?</li>
+<li>Does the model’s <strong>R²</strong> increase substantially (i.e. do controls explain more of the variation)?</li>
+</ol>
+<hr />
+<h3 id="8-predicted-mean-scores-for-specific-profiles">8. Predicted Mean Scores for Specific Profiles</h3>
+<p>We want to compute predicted average scores for students in different programs, conditional on being in a private school and having high SES.</p>
+<pre><code>margins prog, at(schtyp = 2 ses = 3)
+</code></pre>
+<ul>
+<li><code>at(...)</code> fixes <code>schtyp</code> and <code>ses</code> at specific values.</li>
+<li>This gives you predicted means of <code>score</code> by <code>prog</code>, <em>holding school type and SES constant</em>.</li>
+</ul>
+<p>Interpretation:</p>
+<ul>
+<li>Suppose <code>schtyp=2</code> corresponds to <em>private school</em>, and <code>ses=3</code> to <em>high SES</em>. Then you’re comparing predicted scores across programs <em>within those conditions</em>.</li>
+<li>You can compare which program yields the highest expected score for that profile.</li>
+</ul>
+<hr />
+<h2 id="part-2-restaurant-inspections-nonlinear-models">Part 2 — Restaurant Inspections &amp; Nonlinear Models</h2>
+<h3 id="1-load-restaurant-data">1. Load Restaurant Data</h3>
+<p><code>use "restaurant_inspections.dta", clear</code></p>
+<p>Make sure your working directory is correct so STATA finds the file.</p>
+<hr />
+<h3 id="2-reproduce-table-132-regressions">2. Reproduce Table 13.2 Regressions</h3>
+<p>We run two regressions on health inspection scores (<code>inspection_score</code>) and number of locations (<code>numberoflocations</code>):</p>
+<pre><code>reg inspection_score numberoflocations 
+estimates store m1  
+
+reg inspection_score numberoflocations year 
+estimates store m2
+</code></pre>
+<ul>
+<li>The first regression is the bivariate relationship.</li>
+<li>The second adds a control for <code>year</code> to see whether time effects change the estimate.</li>
+</ul>
+<hr />
+<h3 id="3-export-regression-table">3. Export Regression Table</h3>
+<pre><code>esttab m1 m2 using &quot;regression_table.doc&quot;, se r2 ar2 replace
+</code></pre>
+<ul>
+<li><code>esttab</code> (from <code>estout</code> package) neatly formats regression results into a Word <code>.doc</code> file.</li>
+<li>You include standard errors (<code>se</code>), R² (<code>r2</code>), and adjusted R² (<code>ar2</code>).</li>
+</ul>
+<p>If not installed yet, run:</p>
+<pre><code>ssc install estout
+</code></pre>
+<hr />
+<h3 id="4-check-for-nonlinearity-in-number-of-locations">4. Check for Nonlinearity in Number of Locations</h3>
+<p>We suspect the relationship may not be purely linear. Let's allow for a quadratic term:</p>
+<pre><code>gen numloc2 = numberoflocations^2 
+reg inspection_score numberoflocations numloc2
+</code></pre>
+<p>Alternatively, more elegantly:</p>
+<pre><code>reg inspection_score c.numberoflocations##c.numberoflocations
+</code></pre>
+<ul>
+<li><code>c.var##c.var</code> creates both the linear and squared term automatically.</li>
+<li>Check whether the coefficient on the squared term is significant, and examine the sign (positive or negative curvature).</li>
+</ul>
+<p>If the squared term is significant and negative, the relationship may be concave (diminishing returns).</p>
+<hr />
+<h3 id="5-marginal-effects-of-locations">5. Marginal Effects of Locations</h3>
+<p>We want to know how <em>marginal changes</em> in number of locations affect inspection scores:</p>
+<pre><code>margins, dydx(numberoflocations) 
+margins, dydx(numberoflocations) at(numberoflocations = 100)
+margins, dydx(numberoflocations) at(numberoflocations = 750)
+</code></pre>
+<ul>
+<li>The first <code>margins</code> gives an average marginal effect.</li>
+<li>The others compute marginal effects at specific values (e.g. for small or large chains).</li>
+<li>You can plot these with <code>marginsplot</code> to visualize how the effect evolves.</li>
+</ul>
+<hr />
+<h3 id="6-interaction-with-weekend-inspections">6. Interaction with Weekend Inspections</h3>
+<p>We might think that inspections done on weekends behave differently. To test this:</p>
+<pre><code>reg inspection_score c.numberoflocations##i.weekend year, robust 
+margins, dydx(numberoflocations) at(weekend = 1) 
+margins, dydx(numberoflocations) at(weekend = 0)
+</code></pre>
+<ul>
+<li><code>c.var##i.var</code> lets you interact a continuous variable with a categorical one (here, <code>weekend</code>).</li>
+<li><code>robust</code> gives robust standard errors (helpful with heteroskedasticity).</li>
+<li><code>margins, dydx(...) at(...)</code> gives how the slope (effect of number of locations) differs on weekends vs non-weekends.</li>
+</ul>
+<p>Interpretation:</p>
+<ul>
+<li>Does the number-of-locations slope differ on weekends?</li>
+<li>Which group has steeper slope — weekend or non-weekend?</li>
+<li>Are differences statistically meaningful?</li>
+</ul>
+<h2 id="conceptual-takeaways-guidance">Conceptual Takeaways &amp; Guidance</h2>
+<ul>
+<li><strong>Descriptive statistics and tabulations</strong> (summaries, <code>tab</code>) help you <em>see patterns, spot anomalies, and form hypotheses</em>.</li>
+<li><strong>Regression</strong> formalizes a relationship by estimating a “line of best fit” while controlling for other factors.</li>
+<li><strong>Nonlinear models</strong> (quadratic, interactions) allow more flexibility: you are not locked into straight-line assumptions.</li>
+<li><strong>Marginal effects and <code>margins</code></strong> are your friend — they translate coefficient estimates into more interpretable quantities (how much a small change in X affects Y).</li>
+<li>Always <strong>inspect, think, question</strong> — e.g. look at sample sizes, variable coding, potential outliers, and whether causality can be claimed.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.f55a23d4.min.js"></script>
+      
+    
+  </body>
+</html>

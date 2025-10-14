@@ -12,6 +12,8 @@
         <link rel="prev" href="../STATA1/">
       
       
+        <link rel="next" href="../STATA3/">
+      
       
       <link rel="icon" href="../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.20">
@@ -539,6 +541,28 @@
   
 
     
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../STATA3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Data Exploration and Regression
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
   </ul>
 </nav>
                   </div>
@@ -893,7 +917,16 @@ save &quot;Mroz.dta&quot;, replace
 <p>Now let's get more detailed information:</p>
 <pre><code>codebook
 </code></pre>
-<p>This shows us unique values, missing values, and gives us a better sense of each variable's characteristics.</p>
+<p>Some variables in Stata have <strong>string values</strong>, but when you used “<em>describe</em>” command, the storage type of the variable might appear as a <strong>byte</strong></p>
+<p>This happens because the variable is numeric, but has value labels. </p>
+<p>In order to know the <strong>numeric value</strong>, you need to check the <strong>codebook</strong> of that variable.</p>
+<p>For example, here from session 2 we have the variable <strong>wc</strong> with label <strong>“Wife’s college attendence”</strong> , the values shown in the data editor were “Wife did not attend college” and “Wife attended college”  </p>
+<p><img alt="Codebook" src="/images/codebook1.png" />  </p>
+<p>However, when you check the codebook, you will see the <strong>numeric values.</strong> Here for <strong>wc</strong> we </p>
+<p><strong>wc = 0</strong>  → “Wife did not attend college”</p>
+<p><strong>wc = 1 →</strong> “Wife attended college”</p>
+<p>You need to know this numeric values if you want to clean or transform the data, or when using logical conditions
+<img alt="Codebook2" src="/images/codebook2.png" />  </p>
 <blockquote>
 <p>💡 Always check variable labels carefully. this helps avoid confusion later.</p>
 </blockquote>
@@ -959,6 +992,12 @@ save &quot;Mroz.dta&quot;, replace
 <pre><code>label var n_children &quot;Total number of children&quot;
 </code></pre>
 <p>Good labeling helps you and others understand what each variable represents.</p>
+<p>⚠️ Reminder: In Stata, there are two kinds of labels:</p>
+<p>Variable labels — describe what the variable means
+Example: age → “Respondent’s age”</p>
+<p>Value labels — describe what each numeric value represents within a variable
+Example: 1 = Yes, 0 = No</p>
+<p>For more details on STATA variable types, see the <strong>Annex: STATA Variable Types</strong> at the end of this document.</p>
 <hr />
 <h2 id="11-basic-visualizations">11. Basic Visualizations</h2>
 <p>Graphs help us see patterns that numbers alone might miss.</p>
@@ -1098,7 +1137,115 @@ label values inc_cat inc_cat_lb
 <pre><code>save &quot;Mroz_session2.dta&quot;, replace
 log close
 </code></pre>
-<p>Congratulations! You've completed a comprehensive exploratory data analysis and are ready for more advanced econometric techniques.</p>
+<p>Congratulations! You've completed a comprehensive exploratory data analysis and are ready for more advanced econometric techniques.   </p>
+<hr />
+<p>Annex: STATA Variable Types</p>
+<p>This annex provides a quick reference for STATA variable types. It summarizes the storage types, capacities, and examples of variables you may encounter in datasets. Use this table when creating, importing, or inspecting variables to ensure correct data handling.</p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Storage Size</th>
+<th>Meaning / Capacity</th>
+<th>Example Variable</th>
+<th>Example Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Numeric</strong></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>byte</td>
+<td>1 byte</td>
+<td>Whole numbers from -127 to 100</td>
+<td>age_group</td>
+<td>5</td>
+</tr>
+<tr>
+<td>int</td>
+<td>2 bytes</td>
+<td>Whole numbers from -32,767 to 32,740</td>
+<td>year</td>
+<td>1999</td>
+</tr>
+<tr>
+<td>long</td>
+<td>4 bytes</td>
+<td>Whole numbers up to ±2 billion</td>
+<td>population</td>
+<td>1,250,000</td>
+</tr>
+<tr>
+<td>float</td>
+<td>4 bytes</td>
+<td>Decimal numbers (≈7 digits precision)</td>
+<td>income</td>
+<td>15,342.56</td>
+</tr>
+<tr>
+<td>double</td>
+<td>8 bytes</td>
+<td>Decimal numbers (≈16 digits precision)</td>
+<td>gdp</td>
+<td>52,345.6789012</td>
+</tr>
+<tr>
+<td><strong>String</strong></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>str1</td>
+<td>1 byte</td>
+<td>Text up to 1 character</td>
+<td>gender</td>
+<td>"M"</td>
+</tr>
+<tr>
+<td>str2</td>
+<td>2 bytes</td>
+<td>Text up to 2 characters</td>
+<td>code</td>
+<td>"AB"</td>
+</tr>
+<tr>
+<td>str3</td>
+<td>3 bytes</td>
+<td>Text up to 3 characters</td>
+<td>abbr</td>
+<td>"USA"</td>
+</tr>
+<tr>
+<td>str#</td>
+<td># bytes</td>
+<td>Text up to <code>#</code> characters (e.g., str10 = 10 chars)</td>
+<td>name</td>
+<td>"Michael"</td>
+</tr>
+<tr>
+<td>str2045</td>
+<td>2045 bytes</td>
+<td>Text up to 2045 characters</td>
+<td>comment</td>
+<td>"This is a very long text..."</td>
+</tr>
+<tr>
+<td>strL</td>
+<td>Variable</td>
+<td>Text up to ~2 billion characters</td>
+<td>notes</td>
+<td>"Detailed report on the observation..."</td>
+</tr>
+</tbody>
+</table>
+<p>💡 Note: Selecting the correct variable type ensures efficient memory usage and prevents rounding or truncation errors in STATA.</p>
 
 
 
