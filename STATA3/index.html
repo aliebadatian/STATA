@@ -440,6 +440,21 @@
   
 </li>
         
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="">
+      <ul class="md-nav__list">
+        
           <li class="md-nav__item">
   <a href="#4-check-for-nonlinearity-in-number-of-locations" class="md-nav__link">
     <span class="md-ellipsis">
@@ -648,6 +663,21 @@
   
 </li>
         
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="">
+      <ul class="md-nav__list">
+        
           <li class="md-nav__item">
   <a href="#4-check-for-nonlinearity-in-number-of-locations" class="md-nav__link">
     <span class="md-ellipsis">
@@ -730,8 +760,8 @@
 <li><code>codebook</code> (for selected variables) shows you unique values, missing counts, and distributions.  </li>
 </ul>
 <p>At this point, you should check:<br />
-- What coding scheme is used (e.g. is <code>female = 0/1</code>? What values does <code>schtyp</code> take?).<br />
-- Which values of <code>prog</code> (program) exist — e.g. academic, general, vocational.  </p>
+- What coding scheme is used (e.g. is <code>female = 0/1</code>? What values does <code>schtyp</code> take?). be careful and check if the variable have numeric values only or numeric and labels).
+- Which values of <code>prog</code> (program) exist — e.g. academic, general, vocational and the numeric value of each one.</p>
 <hr />
 <h3 id="2-create-an-overall-score-variable">2. Create an Overall “Score” Variable</h3>
 <p>We want a new variable <code>score</code> that is the average of five subject grades: <code>read, write, math, science, socst</code>.  </p>
@@ -743,15 +773,24 @@ label variable score &quot;mean score&quot;
 <li>We divide by 5 because there are five subjects.</li>
 <li><code>label variable</code> gives a human-readable label for output display.</li>
 </ul>
+<p>Another, more robust way to write it  by using <code>rowmean</code>:</p>
+<pre><code>gen score = rowmean(read + write + math + science + socst)
+label variable score &quot;mean score&quot;
+</code></pre>
 <p><strong>Why do this?</strong> <br />
 Because having a single composite score simplifies analysis (fewer regressions) and gives you a summary measure of each student’s performance.</p>
 <hr />
 <h3 id="3-compute-averages-by-gender-and-overall">3. Compute Averages by Gender (and Overall)</h3>
 <p>We’d like to know how male vs. female students perform, and also the overall average.</p>
-<pre><code>bysort female: summarize score
-summarize score if female == 0 
-summarize score if female == 1 
+<pre><code>*Overall summary
 summarize score
+
+*Summary by gender
+bysort female: summarize score
+
+*another way to get the summary by gender
+summarize score if female == 0
+summarize score if female == 1
 </code></pre>
 <ul>
 <li><code>bysort female: summarize score</code> runs the summary (mean, sd, min, max) separately for <code>female = 0</code> and <code>female = 1</code>.</li>
@@ -790,13 +829,19 @@ tab schtyp prog, col
 <pre><code class="language-STATA">reg score i.prog
 </code></pre>
 <ul>
-<li><code>i.prog</code> tells STATA to treat <code>prog</code> as a categorical (factor) variable, creating dummy variables for each program (omitting one as baseline).</li>
+<li><code>i.prog</code> tells STATA to treat <code>prog</code> as a categorical (factor) variable, creating dummy variables for each program (omitting one as baseline <em>again check the codebook to see which category is listed as the first</em>).</li>
 <li>The regression output gives coefficients for each non-baseline program: how much higher (or lower) their average score is, relative to the baseline, holding nothing else constant.</li>
 </ul>
 <p>Check:<br />
 - Which program is the omitted (baseline) category?<br />
 - Are coefficient estimates statistically significant?<br />
 - What does the constant <code>_cons</code> represent (the expected score in the omitted program)?  </p>
+<p>Now let's interpret the results together:  </p>
+<p><img alt="Regression Table" src="/Images/RegressionTable.png" />
+- We have the baseline here is the general category, both of academic and vocation are relative to general<br />
+- Students who are in academic program score on average ~5.10 points higher, while for students who are in vocational program average score ~4.50 points lower. Both of the coefficients are statistically significant at the 1% level (p&lt;0.01).<br />
+- <strong>Intercept</strong>: The mean score for students who are enrolled in general program is 50.83<br />
+- <strong>R-squared</strong>: 24.6% of variation in mean scores explained by the program type alone.  </p>
 <hr />
 <h3 id="7-regression-with-controls-ses-school-type">7. Regression with Controls: SES &amp; School Type</h3>
 <p>We expand the model, adding <strong>socioeconomic status (ses)</strong> and <strong>school type (schtyp)</strong> to control for background differences:</p>
@@ -811,6 +856,23 @@ tab schtyp prog, col
 <li>Look at <code>i.ses</code> and <code>i.schtyp</code>: which levels are significant, and in which direction?</li>
 <li>Does the model’s <strong>R²</strong> increase substantially (i.e. do controls explain more of the variation)?</li>
 </ol>
+<p>let's interpret it together:
+<img alt="Regressiona Table 2" src="/Images/Regression2.png" />
+We adding the socioeconomic and school type variables to the above model:  </p>
+<ul>
+<li>
+<p>The coefficient for the academic slightly deceases to ~4.08 but still positive and statistically significant, same for vocational, the coefficient remains negative ~-4.81 and statistically significant. This conclude that students who are enrolled in academic programs outperform those in general programs and students in general programs outperform those who are in vocational program</p>
+</li>
+<li>
+<p>Students from middle and high SES outperform students coming from low SES  by 3.4 and 5.7 score, respectively. This highlight the strong positive influence of socioeconomic status on academic performance.</p>
+</li>
+<li>
+<p>The type of school doesn’t effect the score as the coefficient of private school is small and not significant (p = .734)</p>
+</li>
+<li>
+<p>Looking at the R-squared, the model explained ~31% of the score variation, which represents a moderate improvement in the explanatory compared to the simpler model.  </p>
+</li>
+</ul>
 <hr />
 <h3 id="8-predicted-mean-scores-for-specific-profiles">8. Predicted Mean Scores for Specific Profiles</h3>
 <p>We want to compute predicted average scores for students in different programs, conditional on being in a private school and having high SES.</p>
@@ -854,7 +916,18 @@ estimates store m2
 <p>If not installed yet, run:</p>
 <pre><code>ssc install estout
 </code></pre>
-<hr />
+<ul>
+<li>You can always ask a LLM model (for example, chatgpt) to help you create the table showing the results of the two regression.<blockquote>
+<p><strong>Example Prompt:</strong><br />
+Act as a Stata specialist. <br />
+I have already run these two models: <br />
+reg inspection_score numberoflocations <br />
+reg inspection_score numberoflocations year <br />
+Please provide the Stata command to combine the results from both of the above regressions into one table (side by side) showing coefficients, robust standard errors, R-squared, N, and significance stars. Then, I want to save that table in my current working directory as RTF (for Word).</p>
+</blockquote>
+</li>
+</ul>
+<h2 id="_1"><img alt="AI" src="/Images/AI.png" /></h2>
 <h3 id="4-check-for-nonlinearity-in-number-of-locations">4. Check for Nonlinearity in Number of Locations</h3>
 <p>We suspect the relationship may not be purely linear. Let's allow for a quadratic term:</p>
 <pre><code>gen numloc2 = numberoflocations^2 
@@ -866,8 +939,13 @@ reg inspection_score numberoflocations numloc2
 <ul>
 <li><code>c.var##c.var</code> creates both the linear and squared term automatically.</li>
 <li>Check whether the coefficient on the squared term is significant, and examine the sign (positive or negative curvature).</li>
-</ul>
+<li>
 <p>If the squared term is significant and negative, the relationship may be concave (diminishing returns).</p>
+</li>
+<li>
+<p>Read lecture #5 and <a href="https://theeffectbook.net/ch-StatisticalAdjustment.html#getting-fancier-with-regression">chapter 13.2</a> for more context.</p>
+</li>
+</ul>
 <hr />
 <h3 id="5-marginal-effects-of-locations">5. Marginal Effects of Locations</h3>
 <p>We want to know how <em>marginal changes</em> in number of locations affect inspection scores:</p>
@@ -897,6 +975,32 @@ margins, dydx(numberoflocations) at(weekend = 0)
 <li>Does the number-of-locations slope differ on weekends?</li>
 <li>Which group has steeper slope — weekend or non-weekend?</li>
 <li>Are differences statistically meaningful?</li>
+</ul>
+<p>If you look at your regression table you can find:</p>
+<ul>
+<li>
+<p>On weekends  </p>
+<ul>
+<li>Each additional restaurant location is associated with a negative effect on the inspection score by -0.029 points. And the effect is statistically significant (p = 0.008). The confidence interval (–0.05 to –0.0075) means we’re 95% confident the true effect lies within that range is always negative.</li>
+</ul>
+</li>
+<li>
+<p>On weekdays  </p>
+<ul>
+<li>Each additional location decreases inspection scores by about 0.019 points, this effect is highly significant (p &lt; 0.001) and very precisely estimated (small standard error).</li>
+</ul>
+</li>
+<li>
+<p>Comparison (weekend vs. weekday)</p>
+<ul>
+<li>
+<p>The effect of having more locations is slightly more negative on weekends (–0.029 vs –0.019), but not dramatically so. Since the interaction term in the regression numberoflocations#weekend wasn’t statistically significant (p = 0.369), we can conclude that this small difference is not statistically meaningful.</p>
+</li>
+<li>
+<p>This means: The negative relationship between the number of locations and inspection score is essentially the same on weekends and weekdays.</p>
+</li>
+</ul>
+</li>
 </ul>
 <h2 id="conceptual-takeaways-guidance">Conceptual Takeaways &amp; Guidance</h2>
 <ul>
