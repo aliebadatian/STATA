@@ -837,7 +837,7 @@ tab schtyp prog, col
 - Are coefficient estimates statistically significant?<br />
 - What does the constant <code>_cons</code> represent (the expected score in the omitted program)?  </p>
 <p>Now let's interpret the results together:  </p>
-<p><img alt="Regression Table" src="/Images/RegressionTable.png" />
+<p><img alt="Regression Table" src="../Images/RegressionTable.png" />
 - We have the baseline here is the general category, both of academic and vocation are relative to general<br />
 - Students who are in academic program score on average ~5.10 points higher, while for students who are in vocational program average score ~4.50 points lower. Both of the coefficients are statistically significant at the 1% level (p&lt;0.01).<br />
 - <strong>Intercept</strong>: The mean score for students who are enrolled in general program is 50.83<br />
@@ -857,7 +857,7 @@ tab schtyp prog, col
 <li>Does the model’s <strong>R²</strong> increase substantially (i.e. do controls explain more of the variation)?</li>
 </ol>
 <p>let's interpret it together:
-<img alt="Regressiona Table 2" src="/Images/docs/Regression2.png" />
+<img alt="Regressiona Table 2" src="../Images/Regression2.png" />
 We adding the socioeconomic and school type variables to the above model:  </p>
 <ul>
 <li>
@@ -927,7 +927,7 @@ Please provide the Stata command to combine the results from both of the above r
 </blockquote>
 </li>
 </ul>
-<h2 id="_1"><img alt="AI" src="/Images/AI.png" /></h2>
+<h2 id="_1"><img alt="AI" src="../Images/AI.png" /></h2>
 <h3 id="4-check-for-nonlinearity-in-number-of-locations">4. Check for Nonlinearity in Number of Locations</h3>
 <p>We suspect the relationship may not be purely linear. Let's allow for a quadratic term:</p>
 <pre><code>gen numloc2 = numberoflocations^2 
