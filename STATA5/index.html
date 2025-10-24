@@ -1,0 +1,796 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../STATA4/">
+      
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.20">
+    
+    
+      
+        <title>Event Studies - Stata Tutorial</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.e53b48f4.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#stata-tutorial-event-studies-google-stock-session-5" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Stata Tutorial" class="md-header__button md-logo" aria-label="Stata Tutorial" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Stata Tutorial
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Event Studies
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Stata Tutorial" class="md-nav__button md-logo" aria-label="Stata Tutorial" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Stata Tutorial
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../STATA1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    STATA Basics
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../STATA2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Descriptive Statistics
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../STATA3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Data Exploration and Regression
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../STATA4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Panel Methods & Fixed Effects
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Event Studies
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Event Studies
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      Introduction
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-getting-started" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Getting Started
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-loading-the-dataset" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Loading the Dataset
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-time-series-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Time Series Setup
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-defining-estimation-and-event-periods" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Defining Estimation and Event Periods
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-abnormal-returns-mean-method" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Abnormal Returns – Mean Method
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-abnormal-returns-market-method" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. Abnormal Returns – Market Method
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-abnormal-returns-risk-adjusted-method" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. Abnormal Returns – Risk-Adjusted Method
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-visualizing-abnormal-returns" class="md-nav__link">
+    <span class="md-ellipsis">
+      8. Visualizing Abnormal Returns
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-inspecting-the-event-day" class="md-nav__link">
+    <span class="md-ellipsis">
+      9. Inspecting the Event Day
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-interpreting-abnormal-returns" class="md-nav__link">
+    <span class="md-ellipsis">
+      10. Interpreting Abnormal Returns
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-closing-your-session" class="md-nav__link">
+    <span class="md-ellipsis">
+      11. Closing Your Session
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      Introduction
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-getting-started" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Getting Started
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-loading-the-dataset" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Loading the Dataset
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-time-series-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Time Series Setup
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-defining-estimation-and-event-periods" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Defining Estimation and Event Periods
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-abnormal-returns-mean-method" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Abnormal Returns – Mean Method
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-abnormal-returns-market-method" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. Abnormal Returns – Market Method
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-abnormal-returns-risk-adjusted-method" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. Abnormal Returns – Risk-Adjusted Method
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-visualizing-abnormal-returns" class="md-nav__link">
+    <span class="md-ellipsis">
+      8. Visualizing Abnormal Returns
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-inspecting-the-event-day" class="md-nav__link">
+    <span class="md-ellipsis">
+      9. Inspecting the Event Day
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-interpreting-abnormal-returns" class="md-nav__link">
+    <span class="md-ellipsis">
+      10. Interpreting Abnormal Returns
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-closing-your-session" class="md-nav__link">
+    <span class="md-ellipsis">
+      11. Closing Your Session
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="stata-tutorial-event-studies-google-stock-session-5">STATA Tutorial: Event Studies – Google Stock (Session 5)</h1>
+<blockquote>
+<p><em>📌 Note:</em><br />
+ All the <strong>full STATA codes</strong> used in this tutorial, together with <strong>training exercises and questions</strong>, are available for download on your <strong>Moodle page</strong>. Be sure to retrieve them so you can follow along and practice.</p>
+</blockquote>
+<h2 id="introduction">Introduction</h2>
+<p>Hey everyone! 👋 In this session, we’re going to play the role of market detectives. We’re going to see how the stock market reacted to <strong>Google’s big announcement on August 10, 2015</strong>—when Google reorganized under <strong>Alphabet</strong>.</p>
+<p><strong>Event studies</strong> are a neat tool in finance and econometrics. The idea is simple: compare what actually happened (the stock’s return) with what we expected to happen if nothing special occurred. The difference? That’s called the <strong>abnormal return (AR)</strong>, and it tells us how the market responded to the event.</p>
+<p>We’ll go through three ways to measure abnormal returns, visualize them, and focus on the day of the announcement. Let's dive in!</p>
+<p>💡 <strong>Tip:</strong> Think of abnormal returns as the <strong>“surprise”</strong> in the stock price caused by the event.</p>
+<hr />
+<h2 id="1-getting-started">1. Getting Started</h2>
+<p>First, let’s clean our workspace and set the folder where our files live:</p>
+<pre><code class="language-stata">clear all
+cd &quot;C:\Users\ebada\Desktop\STATA S5&quot;  // replace with your path
+</code></pre>
+<p>It’s always a good idea to log your session so you can revisit your work later:</p>
+<pre><code class="language-stata">log using &quot;log_stata_session5.log&quot;, replace
+</code></pre>
+<hr />
+<h2 id="2-loading-the-dataset">2. Loading the Dataset</h2>
+<p>We’re using <code>google_stock.dta</code>, which has daily returns for Google and the S\&amp;P 500 from May to August 2015.</p>
+<pre><code class="language-stata">causaldata google_stock.dta, use clear
+describe
+</code></pre>
+<p>Take a look at the dataset. Notice the daily returns for Google (<code>google_return</code>) and the market (<code>sp500_return</code>). These are the building blocks for our abnormal return calculations.</p>
+<hr />
+<h2 id="3-time-series-setup">3. Time Series Setup</h2>
+<p>Because this is daily data, we need to tell Stata it’s a time series:</p>
+<pre><code class="language-stata">tsset date
+</code></pre>
+<p>Now Stata knows we’re dealing with time-ordered data. This lets us plot returns over time easily.</p>
+<hr />
+<h2 id="4-defining-estimation-and-event-periods">4. Defining Estimation and Event Periods</h2>
+<p>Before calculating abnormal returns, we need two periods:</p>
+<ol>
+<li><strong>Estimation period:</strong> This is our “normal” period before the event. We use it to figure out what Google’s returns normally look like.</li>
+<li><strong>Observation period:</strong> This is around the event, where we measure abnormal returns.</li>
+</ol>
+<!-- end list -->
+
+<pre><code class="language-stata">gen est_period = date &lt; td(01aug2015)
+gen obs_period = inrange(date, td(01aug2015), td(31aug2015))
+</code></pre>
+<p>Think of it as: we’re learning Google’s <strong>“usual behavior”</strong> first, then checking how it reacts to the surprise.</p>
+<hr />
+<h2 id="5-abnormal-returns-mean-method">5. Abnormal Returns – Mean Method</h2>
+<p>The simplest way to get abnormal returns is to compare daily returns to the <strong>pre-event average</strong>:</p>
+<pre><code class="language-stata">summarize google_return if est_period
+gen mean_google = r(mean)
+
+gen AR_mean = google_return - mean_google
+label var AR_mean &quot;Abnormal Return (Mean method)&quot;
+</code></pre>
+<p>So here, we’re just saying: <strong>“What’s different today from the usual Google return?”</strong></p>
+<hr />
+<h2 id="6-abnormal-returns-market-method">6. Abnormal Returns – Market Method</h2>
+<p>Next, we account for general market movements. If the whole market is up or down, we don’t want to confuse that with Google’s reaction.</p>
+<pre><code class="language-stata">gen AR_market = google_return - sp500_return
+label var AR_market &quot;Abnormal Return (Market method)&quot;
+</code></pre>
+<p>Now the abnormal return is the difference between Google’s return and the S\&amp;P 500 return.</p>
+<hr />
+<h2 id="7-abnormal-returns-risk-adjusted-method">7. Abnormal Returns – Risk-Adjusted Method</h2>
+<p>The risk-adjusted method is a bit fancier. We model Google’s return based on market movements (regression) and then calculate the surprise:</p>
+<pre><code class="language-stata">regress google_return sp500_return if est_period
+predict expected_ret, xb
+
+gen AR_risk = google_return - expected_ret
+label var AR_risk &quot;Abnormal Return (Risk-adjusted method)&quot;
+</code></pre>
+<p>Here, we’re asking: <strong>“Given the market’s move today, how much did Google deviate from expectation?”</strong></p>
+<hr />
+<h2 id="8-visualizing-abnormal-returns">8. Visualizing Abnormal Returns</h2>
+<p>Graphs are your friends—they make patterns obvious. Let’s start with risk-adjusted abnormal returns for August 2015:</p>
+<pre><code class="language-stata">tsline AR_risk if obs_period, tline(10aug2015) ///
+    title(&quot;Abnormal Return – Google (August 2015)&quot;) ///
+    ytitle(&quot;Abnormal Return&quot;) ///
+    yscale(range(-.06 .06)) ylabel(-.06(.02).06, angle(0) format(%4.2f)) ///
+    xtitle(&quot;Date&quot;)
+
+graph export &quot;AR_risk_Google_August2015.png&quot;, replace
+</code></pre>
+<p>Now let’s compare all three methods in one plot:</p>
+<pre><code class="language-stata">tsline AR_mean AR_market AR_risk if obs_period, tline(10aug2015) ///
+    title(&quot;Abnormal Returns (Different Methods)&quot;) ///
+    legend(order(1 &quot;Mean&quot; 2 &quot;Market&quot; 3 &quot;Risk-adjusted&quot;)) ///
+    ytitle(&quot;Abnormal Return&quot;) ///
+    yscale(range(-.06 .06)) ylabel(-.06(.02).06, angle(0) format(%4.2f)) ///
+    xtitle(&quot;Date&quot;)
+
+graph export &quot;AR_comparison_Google_August2015.png&quot;, replace
+</code></pre>
+<p>See how the abnormal returns <strong>spike on August 10</strong>? That’s the market reacting to the announcement.</p>
+<hr />
+<h2 id="9-inspecting-the-event-day">9. Inspecting the Event Day</h2>
+<p>Curious about the exact numbers on the announcement day?</p>
+<pre><code class="language-stata">list date google_return AR_mean AR_market AR_risk if date==td(10aug2015), noobs
+</code></pre>
+<p>Now you can see the actual return and how “abnormal” it was according to each method.</p>
+<hr />
+<h2 id="10-interpreting-abnormal-returns">10. Interpreting Abnormal Returns</h2>
+<p>Alright, now that we have our abnormal returns and graphs, let’s talk about what they actually mean. Remember: abnormal returns are the difference between what happened and what we expected.</p>
+<p><strong>Positive AR</strong>: The stock did better than expected. For Google on August 10, a positive spike would mean the market reacted favorably to the announcement.</p>
+<p><strong>Negative AR</strong>: The stock did worse than expected. A drop tells us investors were surprised negatively or worried about the news.</p>
+<p>Compare the three methods:</p>
+<p><strong>Mean method</strong>: Simple, just compares against the average historical return. Quick and intuitive, but doesn’t account for market-wide movements.</p>
+<p><strong>Market method</strong>: Adjusts for the overall market movement. This helps isolate Google-specific effects from general market swings.</p>
+<p><strong>Risk-adjusted method</strong>: The most sophisticated of the three. It accounts for Google’s typical sensitivity to the market. If Google usually moves with the market, this method tells us whether today’s move was unusual even given the market’s movement.</p>
+<blockquote>
+<p>💡 <strong>Tip</strong>: Look at the spike on August 10 in your graphs. A clear positive or negative peak indicates that the announcement had a meaningful impact. The bigger the spike, the stronger the market reaction.</p>
+</blockquote>
+<p>Also, check the magnitude of the abnormal returns:</p>
+<p>Small AR (~0.5%) may indicate a mild reaction.</p>
+<p>Large AR (&gt;2–3%) usually signals a major market reaction.</p>
+<p>Finally, compare across methods. If all three methods show a similar spike, that’s strong evidence the event mattered. If they differ, consider market conditions or estimation assumptions—sometimes, choosing the right benchmark makes a difference.</p>
+<hr />
+<h2 id="11-closing-your-session">11. Closing Your Session</h2>
+<p>Don’t forget to save your work:</p>
+<pre><code class="language-stata">log close
+</code></pre>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.f55a23d4.min.js"></script>
+      
+    
+  </body>
+</html>

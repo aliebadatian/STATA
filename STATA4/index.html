@@ -1,0 +1,1170 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../STATA3/">
+      
+      
+        <link rel="next" href="../STATA5/">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.20">
+    
+    
+      
+        <title>Panel Methods & Fixed Effects - Stata Tutorial</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.e53b48f4.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#stata-tutorial-session-4-panel-methods-fixed-effects-balanced-panel-19972000" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Stata Tutorial" class="md-header__button md-logo" aria-label="Stata Tutorial" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Stata Tutorial
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Panel Methods & Fixed Effects
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Stata Tutorial" class="md-nav__button md-logo" aria-label="Stata Tutorial" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Stata Tutorial
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../STATA1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    STATA Basics
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../STATA2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Descriptive Statistics
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../STATA3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Data Exploration and Regression
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Panel Methods & Fixed Effects
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Panel Methods & Fixed Effects
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#motivation-learning-goals-short" class="md-nav__link">
+    <span class="md-ellipsis">
+      Motivation &amp; Learning Goals (Short)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#data-model-reminder" class="md-nav__link">
+    <span class="md-ellipsis">
+      Data &amp; Model (Reminder)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#0-start-clean-set-working-directory-and-open-a-log" class="md-nav__link">
+    <span class="md-ellipsis">
+      0 — Start Clean, Set Working Directory, and Open a Log
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-load-the-dataset-and-optionally-rename-variables" class="md-nav__link">
+    <span class="md-ellipsis">
+      1 — Load the Dataset and (Optionally) Rename Variables
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-create-clear-logged-variables" class="md-nav__link">
+    <span class="md-ellipsis">
+      2 — Create Clear Logged Variables
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-fixed-effects-manual-book-method" class="md-nav__link">
+    <span class="md-ellipsis">
+      3 — Fixed Effects (Manual / “Book” Method)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3 — Fixed Effects (Manual / “Book” Method)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#3a-compute-route-means-time-averages-for-the-outcome-and-time-varying-regressors" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.a Compute route means (time averages) for the outcome and time-varying regressors
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3b-create-demeaned-within-variables" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.b Create demeaned (within) variables
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3c-estimate-ols-on-the-within-transformed-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.c Estimate OLS on the within-transformed data
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-manual-within-year-dummies" class="md-nav__link">
+    <span class="md-ellipsis">
+      4 — Manual within + Year Dummies
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-fixed-effects-using-statas-xtreg-fe-the-built-in-within-estimator" class="md-nav__link">
+    <span class="md-ellipsis">
+      5 — Fixed Effects Using Stata’s xtreg, fe (the Built-in Within Estimator)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5 — Fixed Effects Using Stata’s xtreg, fe (the Built-in Within Estimator)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#5a-declare-the-panel" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.a Declare the panel
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5b-estimate-fe-with-xtreg" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.b Estimate FE with xtreg
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#why-add-log_distance-now" class="md-nav__link">
+    <span class="md-ellipsis">
+      Why add log_distance now?
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-fixed-effects-year-dummies-two-way-fe" class="md-nav__link">
+    <span class="md-ellipsis">
+      6 — Fixed Effects + Year Dummies (Two-way FE)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6 — Fixed Effects + Year Dummies (Two-way FE)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#6a-compare-r2-within-across-models" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.a Compare R^2 (within) across models
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6b-add-distance-and-distance-squared-to-the-model-then-explain" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.b Add distance and distance squared to the model, then explain
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-answers-guidance-to-the-numbered-questions-compact-but-explicit" class="md-nav__link">
+    <span class="md-ellipsis">
+      7 — Answers / Guidance to the Numbered Questions (Compact but Explicit)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#useful-additional-commands-checks-practical-checklist" class="md-nav__link">
+    <span class="md-ellipsis">
+      Useful Additional Commands &amp; Checks (Practical Checklist)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-a-short-troubleshooting-guide" class="md-nav__link">
+    <span class="md-ellipsis">
+      8 — A Short Troubleshooting Guide
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-save-close" class="md-nav__link">
+    <span class="md-ellipsis">
+      9 — Save &amp; Close
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary-what-you-should-be-able-to-explain-after-this-session" class="md-nav__link">
+    <span class="md-ellipsis">
+      Summary — What You Should Be Able to Explain After This Session
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../STATA5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Event Studies
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#motivation-learning-goals-short" class="md-nav__link">
+    <span class="md-ellipsis">
+      Motivation &amp; Learning Goals (Short)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#data-model-reminder" class="md-nav__link">
+    <span class="md-ellipsis">
+      Data &amp; Model (Reminder)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#0-start-clean-set-working-directory-and-open-a-log" class="md-nav__link">
+    <span class="md-ellipsis">
+      0 — Start Clean, Set Working Directory, and Open a Log
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-load-the-dataset-and-optionally-rename-variables" class="md-nav__link">
+    <span class="md-ellipsis">
+      1 — Load the Dataset and (Optionally) Rename Variables
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-create-clear-logged-variables" class="md-nav__link">
+    <span class="md-ellipsis">
+      2 — Create Clear Logged Variables
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-fixed-effects-manual-book-method" class="md-nav__link">
+    <span class="md-ellipsis">
+      3 — Fixed Effects (Manual / “Book” Method)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3 — Fixed Effects (Manual / “Book” Method)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#3a-compute-route-means-time-averages-for-the-outcome-and-time-varying-regressors" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.a Compute route means (time averages) for the outcome and time-varying regressors
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3b-create-demeaned-within-variables" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.b Create demeaned (within) variables
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3c-estimate-ols-on-the-within-transformed-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.c Estimate OLS on the within-transformed data
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-manual-within-year-dummies" class="md-nav__link">
+    <span class="md-ellipsis">
+      4 — Manual within + Year Dummies
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-fixed-effects-using-statas-xtreg-fe-the-built-in-within-estimator" class="md-nav__link">
+    <span class="md-ellipsis">
+      5 — Fixed Effects Using Stata’s xtreg, fe (the Built-in Within Estimator)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5 — Fixed Effects Using Stata’s xtreg, fe (the Built-in Within Estimator)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#5a-declare-the-panel" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.a Declare the panel
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5b-estimate-fe-with-xtreg" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.b Estimate FE with xtreg
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#why-add-log_distance-now" class="md-nav__link">
+    <span class="md-ellipsis">
+      Why add log_distance now?
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-fixed-effects-year-dummies-two-way-fe" class="md-nav__link">
+    <span class="md-ellipsis">
+      6 — Fixed Effects + Year Dummies (Two-way FE)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6 — Fixed Effects + Year Dummies (Two-way FE)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#6a-compare-r2-within-across-models" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.a Compare R^2 (within) across models
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6b-add-distance-and-distance-squared-to-the-model-then-explain" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.b Add distance and distance squared to the model, then explain
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-answers-guidance-to-the-numbered-questions-compact-but-explicit" class="md-nav__link">
+    <span class="md-ellipsis">
+      7 — Answers / Guidance to the Numbered Questions (Compact but Explicit)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#useful-additional-commands-checks-practical-checklist" class="md-nav__link">
+    <span class="md-ellipsis">
+      Useful Additional Commands &amp; Checks (Practical Checklist)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-a-short-troubleshooting-guide" class="md-nav__link">
+    <span class="md-ellipsis">
+      8 — A Short Troubleshooting Guide
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-save-close" class="md-nav__link">
+    <span class="md-ellipsis">
+      9 — Save &amp; Close
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary-what-you-should-be-able-to-explain-after-this-session" class="md-nav__link">
+    <span class="md-ellipsis">
+      Summary — What You Should Be Able to Explain After This Session
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="stata-tutorial-session-4-panel-methods-fixed-effects-balanced-panel-19972000">STATA Tutorial – Session 4: Panel Methods &amp; Fixed Effects (Balanced Panel 1997–2000)</h1>
+<blockquote>
+<p><em>📌 Note:</em><br />
+ All the <strong>full STATA codes</strong> used in this tutorial, together with <strong>training exercises and questions</strong>, are available for download on your <strong>Moodle page</strong>. Be sure to retrieve them so you can follow along and practice.</p>
+</blockquote>
+<hr />
+<h2 id="motivation-learning-goals-short">Motivation &amp; Learning Goals (Short)</h2>
+<p>In this session, we work through an applied panel example: what determines airfares on routes over time. You will:</p>
+<ul>
+<li>compute the <strong>within (demeaned) transformation by hand</strong> (manual FE method);</li>
+<li>estimate <strong>Fixed Effects</strong> both manually and with <code>xtreg, fe</code>;</li>
+<li>add <strong>year dummies</strong> (two-way fixed effects);</li>
+<li>interpret coefficients (especially the market share and passengers effects);</li>
+<li>learn why <strong>time-invariant regressors (distance) vanish</strong> under route FE;</li>
+<li>and compare <strong>within R^2</strong> from different specifications.</li>
+</ul>
+<hr />
+<h2 id="data-model-reminder">Data &amp; Model (Reminder)</h2>
+<p>A <strong>panel dataset</strong> (or longitudinal dataset) contains observations on multiple entities (e.g., airline routes) across several time periods. This structure allows us to study changes within each entity over time and control for unobserved, time-invariant characteristics. In our case, each route is observed annually from 1997 to 2000, and we model how fares depend on route-specific factors and yearly trends. </p>
+<p>You analyze a <strong>balanced panel</strong> for routes i over years t = 1997–2000. The dependent variable is log of average one-way fare:  </p>
+<p><img alt="Formula" src="../Images/S4formula.png" /></p>
+<p><strong>Key points:</strong></p>
+<ul>
+<li><code>bmktshr</code>: market share of the biggest carrier on route i in year t (time varying).</li>
+<li><code>dist</code>: distance (miles) between origin and destination (time invariant).</li>
+<li><code>passengers</code>: average passengers on route i in year t (time varying).</li>
+<li><code>y98, y99, y00</code>: year dummies.</li>
+<li><code>alpha_i</code>: unobserved route fixed effect.</li>
+<li><code>u_it</code>: idiosyncratic error.</li>
+</ul>
+<hr />
+<h2 id="0-start-clean-set-working-directory-and-open-a-log">0 — Start Clean, Set Working Directory, and Open a Log</h2>
+<pre><code class="language-stata">clear all
+cd &quot;E:\009 INTRODUCTION TO ECONOMETRICS (ET4) - a.a. 2025-26\STATA session 4-20251016&quot;
+log using &quot;log_session_airfare_4.log&quot;, replace
+</code></pre>
+<ul>
+<li><code>clear all</code> avoids any leftover objects.</li>
+<li><code>log using ... replace</code> keeps a timestamped record of commands and output.</li>
+</ul>
+<hr />
+<h2 id="1-load-the-dataset-and-optionally-rename-variables">1 — Load the Dataset and (Optionally) Rename Variables</h2>
+<pre><code class="language-stata">use &quot;AIRFARE.dta&quot;, clear
+
+* optional friendly renames (helps later)
+rename id route_id
+rename fare avg_fare
+rename dist distance_miles
+rename passen passengers_day
+rename bmktshr bigcarrier_share
+rename concen market_conc
+</code></pre>
+<p>After loading, always inspect structure:</p>
+<pre><code class="language-stata">describe
+summarize
+codebook route_id avg_fare distance_miles passengers_day bigcarrier_share
+</code></pre>
+<p>Check now: Are there <strong>missing values</strong>? Is the panel <strong>balanced</strong>? Is <code>route_id</code> unique per route? Count observations per route:</p>
+<pre><code class="language-stata">bysort route_id: gen n_obs = _N
+tabulate n_obs
+</code></pre>
+<p>A <strong>balanced panel</strong> should show the same n_obs for all routes (expected = 4 years).</p>
+<hr />
+<h2 id="2-create-clear-logged-variables">2 — Create Clear Logged Variables</h2>
+<p>Use descriptive names. Log transforms are commonly used for skewed variables and to interpret coefficients as <strong>elasticities</strong>.</p>
+<pre><code class="language-stata">gen log_fare = ln(avg_fare)
+gen log_distance = ln(distance_miles)
+gen log_distance2 = log_distance^2
+gen log_passengers = ln(passengers_day)
+</code></pre>
+<p>Check basic summaries (means, sds, min/max) and look for zeros or negatives <strong>before</strong> logging:</p>
+<pre><code class="language-stata">summarize avg_fare distance_miles passengers_day
+count if avg_fare &lt;= 0 | distance_miles &lt;= 0 | passengers_day &lt;= 0
+</code></pre>
+<p>⚠️ If any of these counts &gt; 0, investigate: logs are <strong>undefined</strong> for non-positive values. Fix or drop problematic observations with care.</p>
+<hr />
+<h2 id="3-fixed-effects-manual-book-method">3 — Fixed Effects (Manual / “Book” Method)</h2>
+<p>The manual <strong>within transformation</strong> is a great exercise to understand FE intuition: <strong>remove each route’s mean to eliminate alpha_i</strong>.</p>
+<h3 id="3a-compute-route-means-time-averages-for-the-outcome-and-time-varying-regressors">3.a Compute route means (time averages) for the outcome and time-varying regressors</h3>
+<pre><code class="language-stata">by route_id: egen fare_mean = mean(log_fare)
+by route_id: egen share_mean = mean(bigcarrier_share)
+by route_id: egen pass_mean = mean(log_passengers)
+</code></pre>
+<p>(We do not compute a mean for <code>log_distance</code> because it is time-invariant; its within value would be zero.)</p>
+<h3 id="3b-create-demeaned-within-variables">3.b Create demeaned (within) variables</h3>
+<p>Demean each time-varying variable by subtracting the route mean:</p>
+<pre><code class="language-stata">gen fare_within = log_fare - fare_mean
+gen share_within = bigcarrier_share - share_mean
+gen pass_within = log_passengers - pass_mean
+</code></pre>
+<p>Check that the within variables sum to (approximately) zero by route:</p>
+<pre><code class="language-stata">by route_id: egen check_sum = sum(fare_within)
+summarize check_sum
+</code></pre>
+<p>(You should see near-zero sums — numerical precision may produce tiny nonzero values.)</p>
+<h3 id="3c-estimate-ols-on-the-within-transformed-data">3.c Estimate OLS on the within-transformed data</h3>
+<p>Now run the OLS regression using only within variables (this is the manual FE / "book" estimator):</p>
+<pre><code class="language-stata">reg fare_within share_within pass_within
+</code></pre>
+<p><strong>Interpretation tasks:</strong></p>
+<ul>
+<li>beta 1 (<strong>coefficient on share_within</strong>): measures whether increases in the big carrier’s market share (<strong>relative to that route’s average share</strong> across years) are associated with increases/decreases in log fare (<strong>relative to the route’s time mean</strong>). A positive beta 1 means that when the big carrier gains share on a route (relative to that route’s mean), fares rise.</li>
+<li>beta 2 (<strong>coefficient on pass_within</strong>): measures whether increases in log passengers (relative to that route’s mean) affect fares. Positive beta 2 means that more passengers → higher fares (within that route over time); negative would indicate the opposite.</li>
+</ul>
+<p><strong>Which variation is used?</strong></p>
+<p>This regression uses <strong>within-route (time variation) only</strong>. Cross-route (between) variation is removed by demeaning.</p>
+<hr />
+<h2 id="4-manual-within-year-dummies">4 — Manual within + Year Dummies</h2>
+<p>Year dummies capture <strong>common shocks</strong> across all routes in a year (e.g., oil price shocks, regulation changes).</p>
+<pre><code class="language-stata">reg fare_within share_within pass_within i.year
+</code></pre>
+<p><strong>Questions to answer from output:</strong></p>
+<ol>
+<li><strong>What do the coefficients on <code>i.year</code> represent?</strong>
+    They show average deviations in log fares for each year (relative to the omitted year — usually 1997), after removing route means and conditional on the within variation in share and passengers. In other words, they capture <strong>common time effects</strong> (year shocks) across routes.</li>
+<li><strong>Why add time dummies?</strong>
+    To <strong>control for factors that change over time and affect all routes</strong> (or many routes) simultaneously. Omitting them can bias coefficients if those time shocks correlate with regressors (e.g., market share systematically changes with industry-wide shocks).</li>
+<li><strong>Compare bmktshr (share) coefficient before/after year dummies:</strong>
+    Did it change? If yes, that suggests part of the raw within relationship was due to common time shocks correlated with share. If not, the share effect is robust to controlling for year effects.</li>
+</ol>
+<hr />
+<h2 id="5-fixed-effects-using-statas-xtreg-fe-the-built-in-within-estimator">5 — Fixed Effects Using Stata’s <code>xtreg, fe</code> (the Built-in Within Estimator)</h2>
+<p>This should give <strong>identical estimates</strong> (up to numerical precision) to your manual within OLS.</p>
+<h3 id="5a-declare-the-panel">5.a Declare the panel</h3>
+<pre><code class="language-stata">xtset route_id year
+</code></pre>
+<p>Check for panel settings and whether any gaps exist.</p>
+<h3 id="5b-estimate-fe-with-xtreg">5.b Estimate FE with <code>xtreg</code></h3>
+<pre><code class="language-stata">xtreg log_fare bigcarrier_share log_passengers, fe
+</code></pre>
+<p><strong>Compare to manual method:</strong></p>
+<p>The <code>xtreg, fe</code> coefficients on <code>bigcarrier_share</code> and <code>log_passengers</code> should <strong>match</strong> the coefficients from the manual within regression (assuming the same variables and no year dummies). If they match, your manual demeaning was done correctly.</p>
+<h3 id="why-add-log_distance-now">Why add <code>log_distance</code> now?</h3>
+<pre><code class="language-stata">xtreg log_fare bigcarrier_share log_distance log_distance2 log_passengers, fe
+</code></pre>
+<p><strong>What happens to <code>log_distance</code> and <code>log_distance2</code>?</strong></p>
+<p>Because <code>log_distance</code> (and its square) are <strong>time invariant</strong> for each route, they are <strong>perfectly collinear</strong> with the route fixed effect alpha i. The within (demeaning) transformation subtracts the route time mean, leaving zero variation for time-invariant regressors — thus <code>xtreg, fe</code> <strong>drops them</strong> from the estimation (STATA will report they are omitted).</p>
+<p>This is why a fixed-effects (within) estimator <strong>cannot estimate coefficients on variables that do not vary over time within units</strong>.</p>
+<hr />
+<h2 id="6-fixed-effects-year-dummies-two-way-fe">6 — Fixed Effects + Year Dummies (Two-way FE)</h2>
+<p>Include both route FE and year FE — a common specification to control for both route fixed heterogeneity and common time shocks.</p>
+<pre><code class="language-stata">xtreg log_fare bigcarrier_share log_passengers i.year, fe
+</code></pre>
+<h3 id="6a-compare-r2-within-across-models">6.a Compare R^2 (within) across models</h3>
+<p><code>xtreg</code> reports several R^2 measures; the relevant one here is <strong>within R^2</strong> (how well the model explains variation within routes).</p>
+<p>Compare:</p>
+<ul>
+<li><strong>One-way FE</strong> (route only): <code>xtreg ... , fe</code> without <code>i.year</code> → within R^2 = R^2_{oneway}.</li>
+<li><strong>Two-way FE</strong> (route + year): <code>xtreg ... i.year, fe</code> → within R2 = R2_{twoway}.</li>
+</ul>
+<p><strong>Interpretation of change in within R^2:</strong></p>
+<p>If adding year dummies increases within R^2, common time effects explain additional within-unit variation (e.g., year shocks that differ from route means).</p>
+<h3 id="6b-add-distance-and-distance-squared-to-the-model-then-explain">6.b Add distance and distance squared to the model, then explain</h3>
+<pre><code class="language-stata">xtreg log_fare bigcarrier_share log_passengers log_distance log_distance2 i.year, fe
+</code></pre>
+<p>Here again log_distance and log_distance2 are <strong>time invariant</strong> and will be <strong>dropped</strong> by <code>xtreg, fe</code>.</p>
+<p><strong>Why?</strong> Because the within transformation eliminates time-invariant components — there is <strong>no within variation</strong> left to estimate their effect.</p>
+<hr />
+<h2 id="7-answers-guidance-to-the-numbered-questions-compact-but-explicit">7 — Answers / Guidance to the Numbered Questions (Compact but Explicit)</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Task</th>
+<th style="text-align: left;">Guidance</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Load the dataset</strong></td>
+<td style="text-align: left;">Done in §1.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Create logs</strong></td>
+<td style="text-align: left;">Done in §2 (<code>log_fare</code>, <code>log_distance</code>, <code>log_distance2</code>, <code>log_passengers</code>).</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Manual FE (book method)</strong></td>
+<td style="text-align: left;">You computed route means and demeaned time-varying variables in §3.a–§3.b. OLS on demeaned variables in §3.c.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Interpretation of beta_1 (share)</strong></td>
+<td style="text-align: left;">If beta_1 &gt; 0, <strong>within a route</strong>, when the big carrier’s share is higher than its route average, fares tend to be higher.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Interpretation of beta_2 (passengers)</strong></td>
+<td style="text-align: left;">As log_passengers changes, beta_2 is an <strong>elasticity</strong>: e.g., beta_2 = 0.1 means a 1% increase in passengers (within that route over time) is associated with a 0.1% increase in fare.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Type of variation</strong></td>
+<td style="text-align: left;"><strong>Within-route</strong> (time variation) only.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Manual FE + year dummies</strong></td>
+<td style="text-align: left;">Year coefficients represent average (common) deviations in log fares in those years (after removing route means). Year dummies are important to control for industry-wide shocks correlated with regressors.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><code>xtset</code> &amp; <code>xtreg, fe</code></strong></td>
+<td style="text-align: left;"><code>xtset route_id year</code> declares the panel. <code>xtreg ... , fe</code> implements the within estimator — <strong>results should match the manual method</strong>.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Why does log_distance disappear?</strong></td>
+<td style="text-align: left;">Because it is <strong>time-invariant</strong>: the within transform subtracts the route mean and leaves zero for that regressor.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><code>xtreg</code> + year dummies</strong></td>
+<td style="text-align: left;">Estimate with <code>i.year</code>. Compare <strong>within R^2</strong> of one-way (route only) vs two-way (route + year) — interpret as explained earlier (§6.a).</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="useful-additional-commands-checks-practical-checklist">Useful Additional Commands &amp; Checks (Practical Checklist)</h2>
+<p><strong>Compare manual vs <code>xtreg</code> coefficients numerically:</strong></p>
+<pre><code class="language-stata">* manual (run earlier)
+reg fare_within share_within pass_within
+estimates store manual_fe
+
+* xtreg
+xtreg log_fare bigcarrier_share log_passengers, fe
+estimates store xt_fe
+
+* compare
+esttab manual_fe xt_fe, se ar2
+</code></pre>
+<p><strong>Test joint significance of year dummies:</strong> (use <code>test</code> after the regression with year dummies)</p>
+<pre><code class="language-stata">* after reg fare_within share_within pass_within i.year
+testparm i.year
+</code></pre>
+<p><strong>Obtain within R^2 from <code>xtreg</code> output:</strong> Look at "R-sq: within" in <code>xtreg</code> output. To get more diagnostics:</p>
+<pre><code class="language-stata">xtreg log_fare bigcarrier_share log_passengers i.year, fe robust
+</code></pre>
+<p><strong>If you need distance effect (between effect):</strong></p>
+<pre><code class="language-stata">xtreg log_fare log_distance log_passengers bigcarrier_share, be
+</code></pre>
+<hr />
+<h2 id="8-a-short-troubleshooting-guide">8 — A Short Troubleshooting Guide</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Problem</th>
+<th style="text-align: left;">Cause / Solution</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>log()</code> fails</td>
+<td style="text-align: left;">Check zeros/negative values with <code>count if var &lt;= 0</code>.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>xtset</code> complains</td>
+<td style="text-align: left;">Ensure <code>route_id</code> and <code>year</code> are properly formatted (numeric), sorted, and unique per panel/time.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>xtreg</code> drops a variable</td>
+<td style="text-align: left;">Often because the variable is <strong>time-invariant</strong> (<code>distance</code>) or perfectly collinear with dummies.</td>
+</tr>
+<tr>
+<td style="text-align: left;">Manual within not matching <code>xtreg</code></td>
+<td style="text-align: left;">Check you demeaned exactly the same variables and that no observations were lost (e.g., due to missing values).</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="9-save-close">9 — Save &amp; Close</h2>
+<p>At the end of your session save the cleaned / transformed dataset and close the log:</p>
+<pre><code class="language-stata">save &quot;AIRFARE_session4_working.dta&quot;, replace
+log close
+</code></pre>
+<hr />
+<h2 id="summary-what-you-should-be-able-to-explain-after-this-session">Summary — What You Should Be Able to Explain After This Session</h2>
+<ul>
+<li>How to construct <strong>logged variables</strong> and why.</li>
+<li>The logic of the <strong>within (demeaning) transformation</strong> and how to compute it manually.</li>
+<li>That the manual within OLS and <code>xtreg, fe</code> produce the <strong>same estimates</strong> for time-varying regressors.</li>
+<li>Why <strong>time-invariant regressors (distance) disappear</strong> in the within estimator and how to obtain between estimates if needed.</li>
+<li>The role of <strong>year dummies (two-way FE)</strong> and how to interpret the within R^2 change.</li>
+<li>How to interpret coefficients on market share and log passengers as <strong>within effects</strong> (elasticities or approximate percent changes depending on units).</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.f55a23d4.min.js"></script>
+      
+    
+  </body>
+</html>
